@@ -20,7 +20,7 @@ class App extends Component {
 	 * lifecycle
 	 */
 	componentWillMount() {
-		let myName = localStorage.getItem()
+		// let myName = localStorage.getItem()
 	}
 
 	/**
