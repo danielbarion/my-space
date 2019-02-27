@@ -1,0 +1,59 @@
+.home
+	display grid
+	grid-template-areas 'background'\
+											'logo'\
+											'button'
+	grid-template-rows 0px 2fr 2fr
+	height 100vh
+	width 100vw
+	background-color #F0F8FF
+
+	&-background
+		opacity 0.25
+		position absolute
+		height 100vh
+		width 100vw
+		// background url('../../assets/img/hexagon.png')
+		background url('../../assets/svg/hexagon.svg')
+		background-size 217px
+		z-index 1
+
+	&-logo
+		grid-area logo
+		display flex
+		justify-content center
+		align-items flex-end
+		position relative
+		z-index 2
+
+	&-button
+		font-family: 'Ubuntu', sans-serif;
+		color aliceblue
+		min-width 120px
+		height 30px
+		display flex
+		justify-content center
+		justify-self center
+		align-items center
+		grid-area button
+		padding-top 0.5rem
+		padding-bottom 0.5rem
+		padding-right 1.5rem
+		padding-left 1.5rem
+		margin-top 1.75rem
+		background-color #61DAFB
+		border-radius 10px
+		position relative
+		cursor pointer
+		z-index 2
+		user-select none
+		box-shadow 0 3px 5px 0 rgba(0,0,0,0.15),
+							 0 2px 5px 1px rgba(191,212,214,0.54),
+							 0 2px 5px 1px rgba(97,218,251, 0.5)
+
+		&:active
+			box-shadow inset 0 3px 5px 0 rgba(0,0,0,0.15),
+								 inset 0 2px 5px 1px rgba(191,212,214,0.54),
+								 inset 0 2px 5px 1px rgba(97,218,251, 0.5)
+
+

@@ -13,14 +13,14 @@ class Home extends Component {
 		/**
 		 * binded funcs
 		 */
-		// this.inputValidator = this.inputValidator.bind(this)
+		this.goToApp = this.goToApp.bind(this)
 	}
 
 	/**
 	 * funcs
 	 */
 	goToApp() {
-		// this.props.history.push(`/store/${this.state.driverCode}`)
+		this.props.history.push(`/app`)
 	}
 
 	/**
@@ -60,7 +60,7 @@ class Home extends Component {
 		)
 
 		const button = () => (
-			<div className={_button}>
+			<div className={_button} onClick={this.goToApp}>
 				Enter in MySpace
 			</div>
 		)
