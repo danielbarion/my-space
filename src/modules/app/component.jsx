@@ -96,7 +96,7 @@ class App extends Component {
 
 		const searchInput = () => (
 			<div className={_searchInput}>
-
+				<input type='text' name='search' />
 			</div>
 		)
 		const searchIcon = () => (

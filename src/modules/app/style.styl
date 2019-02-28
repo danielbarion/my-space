@@ -44,6 +44,38 @@
 									inset 0 0.1px 0.5px 0.5px rgba(97,218,251, 0.25)
 				border 1px solid aliceblue
 
+				&-input
+					padding-left 0.3rem
+
+					input
+						margin 0
+						border 0
+						padding 0
+						display inline-block
+						vertical-align middle
+						white-space normal
+						background none
+						font-size  12px
+						font-family 'ubuntu'
+						font-weight 600
+						-webkit-box-sizing content-box
+						-moz-box-sizing content-box
+						box-sizing content-box
+						color #616161
+						width 92%
+						min-width 35px
+						max-width 92%
+						transition width 0.25s
+						white-space nowrap
+						overflow hidden
+						text-overflow ellipsis
+
+						&::placeholder
+							color #ababab
+
+						&:focus
+							outline 0
+
 				&-icon
 					grid-area icon
 					display flex
