@@ -14,13 +14,15 @@ class App extends Component {
 		super(props)
 			this.state = {
 				firstTimeInApp: true,
+				searchBarExpanded: false,
 				page: 1
 			}
 
 		/**
 		 * binded funcs
 		 */
-		// this.goToApp = this.goToApp.bind(this)
+		this.switchSearchBarActive = this.switchSearchBarActive.bind(this)
+		this.searchBarActiveAttr = this.searchBarActiveAttr.bind(this)
 	}
 
 	/**
@@ -34,6 +36,43 @@ class App extends Component {
 	 * funcs
 	 */
 
+	switchSearchBarActive(event) {
+		const { searchBarExpanded } = this.state
+		const { type } = event
+
+			switch (type) {
+			case 'click':
+				if (!searchBarExpanded) {
+					const searchInput = document.querySelector('#search-input')
+
+					this.setState({ searchBarExpanded: true }, () => {
+						searchInput.focus()
+					})
+				}
+				break
+			case 'blur':
+				if (searchBarExpanded) {
+					this.setState({ searchBarExpanded: false })
+				}
+				break
+
+			default:
+				break
+		}
+	}
+
+	/**
+	 * attrs
+	 */
+	searchBarActiveAttr() {
+		let active = ''
+
+		if (this.state.searchBarExpanded) {
+			active = 'true'
+		}
+
+		return active
+	}
 
 	/**
 	* React Render
@@ -88,15 +127,15 @@ class App extends Component {
 		)
 
 		const search = () => (
-			<div className={_search}>
+			<div className={_search} onClick={this.switchSearchBarActive} active={this.searchBarActiveAttr()}>
 				{searchIcon()}
 				{searchInput()}
 			</div>
 		)
 
 		const searchInput = () => (
-			<div className={_searchInput}>
-				<input type='text' name='search' />
+			<div className={_searchInput} active={this.searchBarActiveAttr()}>
+				<input type='text' id='search-input' name='search' onBlur={this.switchSearchBarActive} />
 			</div>
 		)
 		const searchIcon = () => (

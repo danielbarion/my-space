@@ -37,15 +37,24 @@
 				align-items center
 				grid-area search
 				background #FFF
-				width 12rem
+				width 40px
 				border-radius 20px
 				box-shadow 0 3px 5px 0 rgba(0,0,0,0.15),
 									0 2px 5px 1px rgba(97,218,251, 0.25),
 									inset 0 0.1px 0.5px 0.5px rgba(97,218,251, 0.25)
 				border 1px solid aliceblue
+				cursor pointer
+				transition width 0.3s ease
+
+				&[active=true]
+					width 20rem
 
 				&-input
-					padding-left 0.3rem
+					padding-left 0.6rem
+					display none
+
+					&[active=true]
+						display block
 
 					input
 						margin 0
@@ -62,9 +71,9 @@
 						-moz-box-sizing content-box
 						box-sizing content-box
 						color #616161
-						width 92%
+						width 95%
 						min-width 35px
-						max-width 92%
+						max-width 95%
 						transition width 0.25s
 						white-space nowrap
 						overflow hidden
