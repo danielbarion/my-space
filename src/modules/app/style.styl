@@ -16,34 +16,122 @@
 
 	&-content
 		display grid
-		grid-template-areas 'search'\
-												'cards'
-		grid-template-rows 35px auto
+		grid-template-areas 'header'\
+												'cards'\
+												'pagination'
+		grid-template-rows 35px auto 30px
 		padding-top 10rem
 		padding-right 15rem
 		padding-left 15rem
 
-		&-search
+		&-header
+			grid-area header
 			display grid
-			grid-template-areas 'icon input'
-			grid-template-columns 32px 1fr
-			align-items center
-			grid-area search
-			background #FFF
-			width 12rem
-			border-radius 20px
-			box-shadow 0 3px 5px 0 rgba(0,0,0,0.15),
-							   0 2px 5px 1px rgba(97,218,251, 0.25),
-							   inset 0 0.1px 0.5px 0.5px rgba(97,218,251, 0.25)
-			border 1px solid aliceblue
+			grid-template-areas 'search pagination'
+			grid-template-columns 1fr 1fr
 
-			&-icon
-				grid-area icon
+			&-search
+				display grid
+				grid-template-areas 'icon input'
+				grid-template-columns 32px 1fr
+				align-items center
+				grid-area search
+				background #FFF
+				width 12rem
+				border-radius 20px
+				box-shadow 0 3px 5px 0 rgba(0,0,0,0.15),
+									0 2px 5px 1px rgba(97,218,251, 0.25),
+									inset 0 0.1px 0.5px 0.5px rgba(97,218,251, 0.25)
+				border 1px solid aliceblue
+
+				&-icon
+					grid-area icon
+					display flex
+					justify-self flex-end
+
+					& svg
+						color rgba(140,148,155, 0.3)
+
+			&-pagination
+				grid-area pagination
 				display flex
-				justify-self flex-end
+				justify-content flex-end
+				align-items center
+				padding-right 0.75rem
 
-				& svg
-					color rgba(140,148,155, 0.3)
+				&-first-page
+					display flex
+					align-items center
+					justify-content center
+					margin-right 0.75rem
+					transform rotate(270deg)
+
+					& svg
+						cursor pointer
+						border-radius 50%
+						color rgba(140,148,155, 0.3)
+						box-shadow -3px 0 5px 0 rgba(0,0,0,0.15),
+									-2px 0 5px 1px rgba(97,218,251, 0.25),
+									inset 0 -0.1px 0.5px 0.5px rgba(97,218,251, 0.25)
+
+				&-previous-page
+					display flex
+					align-items center
+					justify-content center
+					margin-right 0.75rem
+
+					& svg
+						cursor pointer
+						border-radius 50%
+						color rgba(140,148,155, 0.3)
+						box-shadow 0 3px 5px 0 rgba(0,0,0,0.15),
+									0 2px 5px 1px rgba(97,218,251, 0.25),
+									inset 0 0.1px 0.5px 0.5px rgba(97,218,251, 0.25)
+
+				&-next-page
+					display flex
+					align-items center
+					justify-content center
+					margin-left 0.75rem
+
+					& svg
+						cursor pointer
+						border-radius 50%
+						color rgba(140,148,155, 0.3)
+						box-shadow 0 3px 5px 0 rgba(0,0,0,0.15),
+									0 2px 5px 1px rgba(97,218,251, 0.25),
+									inset 0 0.1px 0.5px 0.5px rgba(97,218,251, 0.25)
+
+				&-last-page
+					display flex
+					align-items center
+					justify-content center
+					margin-left 0.75rem
+					transform rotate(90deg)
+
+					& svg
+						cursor pointer
+						border-radius 50%
+						color rgba(140,148,155, 0.3)
+						box-shadow 3px 0 5px 0 rgba(0,0,0,0.15),
+									2px 0 5px 1px rgba(97,218,251, 0.25),
+									inset 0 -0.1px 0.5px 0.5px rgba(97,218,251, 0.25)
+
+				&-number
+					cursor pointer
+					display flex
+					align-items center
+					justify-content center
+					padding 0.45rem
+					font-size 10px
+					min-width 10px
+					max-height 10px
+					font-family 'ubuntu'
+					border-radius 50%
+					color rgba(140,148,155, 0.5)
+					box-shadow 0 3px 5px 0 rgba(0,0,0,0.15),
+								0 2px 5px 1px rgba(97,218,251, 0.25),
+								inset 0 0.1px 0.5px 0.5px rgba(97,218,251, 0.25)
 
 		&-card-list
 			display flex
@@ -55,12 +143,10 @@
 			&-card
 				margin-top 1rem
 				margin-right 1rem
-				height 200px
-				width 160px
+				height auto
+				width calc(20% - 1rem)
 				min-height 200px
 				min-width 160px
-				max-height 200px
-				max-width 160px
 				background-color #fff
 				box-shadow 0 3px 5px 0 rgba(0,0,0,0.15),
 						0 2px 5px 1px rgba(97,218,251, 0.25),

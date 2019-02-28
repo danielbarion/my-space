@@ -2,13 +2,19 @@
  * dependencies
  */
 import React, { Component } from 'react'
-import { Search } from '@material-ui/icons'
+import {
+	Search,
+	KeyboardArrowLeftRounded,
+	KeyboardArrowRightRounded,
+	KeyboardCapslockRounded
+} from '@material-ui/icons'
 
 class App extends Component {
 	constructor(props) {
 		super(props)
 			this.state = {
-				firstTimeInApp: true
+				firstTimeInApp: true,
+				page: 1
 			}
 
 		/**
@@ -39,11 +45,18 @@ class App extends Component {
 		const _root = 'app'
 		const _navbar = `${_root}-navbar`
 		const _content = `${_root}-content`
-		const _search = `${_content}-search`
+		const _contentHeader = `${_content}-header`
+		const _search = `${_contentHeader}-search`
 		const _searchIcon = `${_search}-icon`
 		const _searchInput = `${_search}-input`
 		const _cardList = `${_content}-card-list`
 		const _card = `${_cardList}-card`
+		const _pagination = `${_contentHeader}-pagination`
+		const _paginationNumber = `${_pagination}-number`
+		const _paginationFirstPage = `${_pagination}-first-page`
+		const _paginationPreviousPage = `${_pagination}-previous-page`
+		const _paginationNextPage = `${_pagination}-next-page`
+		const _paginationLastPage = `${_pagination}-last-page`
 
 		/**
 		 * render functions
@@ -62,8 +75,15 @@ class App extends Component {
 
 		const content = () => (
 			<div className={_content}>
-				{search()}
+				{contentHeader()}
 				{cardList()}
+			</div>
+		)
+
+		const contentHeader = () => (
+			<div className={_contentHeader}>
+				{search()}
+				{pagination()}
 			</div>
 		)
 
@@ -98,8 +118,28 @@ class App extends Component {
 				<div className={_card}></div>
 				<div className={_card}></div>
 				{/* 10 */}
-				<div className={_card}></div>
-				<div className={_card}></div>
+				{/* <div className={_card}></div>
+				<div className={_card}></div> */}
+			</div>
+		)
+
+		const pagination = () => (
+			<div className={_pagination}>
+				<div className={_paginationFirstPage}>
+					<KeyboardCapslockRounded />
+				</div>
+				<div className={_paginationPreviousPage}>
+					<KeyboardArrowLeftRounded />
+				</div>
+				<div className={_paginationNumber}>
+					1
+				</div>
+				<div className={_paginationNextPage}>
+					<KeyboardArrowRightRounded />
+				</div>
+				<div className={_paginationLastPage}>
+					<KeyboardCapslockRounded />
+				</div>
 			</div>
 		)
 
