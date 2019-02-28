@@ -1,59 +1,67 @@
-.home
+.app
 	display grid
-	grid-template-areas 'background'\
-											'logo'\
-											'button'
-	grid-template-rows 0px 2fr 2fr
+	grid-template-areas 'navbar'\
+											'content'
+	grid-template-rows 60px auto
 	height 100vh
 	width 100vw
-	background-color #F0F8FF
+	background-color #fff
 
-	&-background
-		opacity 0.25
-		position absolute
-		height 100vh
-		width 100vw
-		// background url('../../assets/img/hexagon.png')
-		background url('../../assets/svg/hexagon.svg')
-		background-size 217px
-		z-index 1
+	&-navbar
+		height 100%
+		width 100%
+		background-color aliceblue
+		box-shadow 0 3px 5px 0 rgba(0,0,0,0.12),
+						0 2px 5px 1px rgba(97,218,251, 0.25)
 
-	&-logo
-		grid-area logo
-		display flex
-		justify-content center
-		align-items flex-end
-		position relative
-		z-index 2
+	&-content
+		display grid
+		grid-template-areas 'search'\
+												'cards'
+		grid-template-rows 35px auto
+		padding-top 10rem
+		padding-right 15rem
+		padding-left 15rem
 
-	&-button
-		font-family: 'Ubuntu', sans-serif;
-		color aliceblue
-		min-width 120px
-		height 30px
-		display flex
-		justify-content center
-		justify-self center
-		align-items center
-		grid-area button
-		padding-top 0.5rem
-		padding-bottom 0.5rem
-		padding-right 1.5rem
-		padding-left 1.5rem
-		margin-top 1.75rem
-		background-color #61DAFB
-		border-radius 10px
-		position relative
-		cursor pointer
-		z-index 2
-		user-select none
-		box-shadow 0 3px 5px 0 rgba(0,0,0,0.15),
-							 0 2px 5px 1px rgba(191,212,214,0.54),
-							 0 2px 5px 1px rgba(97,218,251, 0.5)
+		&-search
+			display grid
+			grid-template-areas 'icon input'
+			grid-template-columns 32px 1fr
+			align-items center
+			grid-area search
+			background #FFF
+			width 12rem
+			border-radius 20px
+			box-shadow 0 3px 5px 0 rgba(0,0,0,0.15),
+							   0 2px 5px 1px rgba(97,218,251, 0.25),
+							   inset 0 0.1px 0.5px 0.5px rgba(97,218,251, 0.25)
+			border 1px solid aliceblue
 
-		&:active
-			box-shadow inset 0 3px 5px 0 rgba(0,0,0,0.15),
-								 inset 0 2px 5px 1px rgba(191,212,214,0.54),
-								 inset 0 2px 5px 1px rgba(97,218,251, 0.5)
+			&-icon
+				grid-area icon
+				display flex
+				justify-self flex-end
 
+				& svg
+					color rgba(140,148,155, 0.3)
 
+		&-card-list
+			display flex
+			align-content baseline
+			flex-wrap wrap
+			margin-top 1rem
+			padding-left 0.35rem
+
+			&-card
+				margin-top 1rem
+				margin-right 1rem
+				height 200px
+				width 160px
+				min-height 200px
+				min-width 160px
+				max-height 200px
+				max-width 160px
+				background-color #fff
+				box-shadow 0 3px 5px 0 rgba(0,0,0,0.15),
+						0 2px 5px 1px rgba(97,218,251, 0.25),
+						inset 0 0.1px 0.5px 0.5px rgba(97,218,251, 0.25)
