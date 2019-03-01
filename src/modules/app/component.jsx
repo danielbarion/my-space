@@ -2,11 +2,10 @@
  * dependencies
  */
 import React, { Component } from 'react'
+import Card from 'components/card/component'
+import Pagination from 'components/pagination/component'
 import {
-	Search,
-	KeyboardArrowLeftRounded,
-	KeyboardArrowRightRounded,
-	KeyboardCapslockRounded
+	Search
 } from '@material-ui/icons'
 
 class App extends Component {
@@ -15,7 +14,11 @@ class App extends Component {
 			this.state = {
 				firstTimeInApp: true,
 				searchBarExpanded: false,
-				page: 1
+				characters: [],
+				pagination: {
+					page: 1,
+					total: 0
+				}
 			}
 
 		/**
@@ -23,6 +26,7 @@ class App extends Component {
 		 */
 		this.switchSearchBarActive = this.switchSearchBarActive.bind(this)
 		this.searchBarActiveAttr = this.searchBarActiveAttr.bind(this)
+		this.getMarvelCharacters = this.getMarvelCharacters.bind(this)
 	}
 
 	/**
@@ -30,11 +34,40 @@ class App extends Component {
 	 */
 	componentWillMount() {
 		// let myName = localStorage.getItem()
+		this.getMarvelCharacters()
 	}
 
 	/**
 	 * funcs
 	 */
+	getMarvelCharacters() {
+		let { pagination } = this.state
+		const url = `https://gateway.marvel.com:443/v1/public/characters?limit=10&offset=${pagination.page > 1 ? pagination.page : 0}&apikey=7f01d88c02623145666b4af6c47029d6`
+
+		fetch(url).then(response => {
+			const { status } = response
+
+			if (status !== 200) {
+				console.warn('status of response !== 200')
+				return
+			}
+
+			return response.json()
+		}).then(response => {
+			const { data } = response
+			pagination.total = data.total
+
+			this.setState({
+				characters: data.results,
+				pagination
+			})
+
+
+			console.log({response})
+		}).catch(error => {
+			console.error(error)
+		})
+	}
 
 	switchSearchBarActive(event) {
 		const { searchBarExpanded } = this.state
@@ -99,13 +132,7 @@ class App extends Component {
 		const _searchIcon = `${_search}-icon`
 		const _searchInput = `${_search}-input`
 		const _cardList = `${_content}-card-list`
-		const _card = `${_cardList}-card`
 		const _pagination = `${_contentHeader}-pagination`
-		const _paginationNumber = `${_pagination}-number`
-		const _paginationFirstPage = `${_pagination}-first-page`
-		const _paginationPreviousPage = `${_pagination}-previous-page`
-		const _paginationNextPage = `${_pagination}-next-page`
-		const _paginationLastPage = `${_pagination}-last-page`
 
 		/**
 		 * render functions
@@ -150,39 +177,18 @@ class App extends Component {
 
 		const cardList = () => (
 			<div className={_cardList}>
-				<div className={_card}></div>
-				<div className={_card}></div>
-				<div className={_card}></div>
-				<div className={_card}></div>
-				<div className={_card}></div>
-				<div className={_card}></div>
-				<div className={_card}></div>
-				<div className={_card}></div>
-				<div className={_card}></div>
-				<div className={_card}></div>
-				{/* 10 */}
-				{/* <div className={_card}></div>
-				<div className={_card}></div> */}
+				{this.state.characters.map((character, index) => (
+					<Card
+						character
+						key={index}
+					/>)
+				)}
 			</div>
 		)
 
 		const pagination = () => (
 			<div className={_pagination}>
-				<div className={_paginationFirstPage} id='firstPageArrow' onClick={this.animationPulse.bind(this, 'firstPageArrow')}>
-					<KeyboardCapslockRounded />
-				</div>
-				<div className={_paginationPreviousPage} id='previousPageArrow' onClick={this.animationPulse.bind(this, 'previousPageArrow')}>
-					<KeyboardArrowLeftRounded />
-				</div>
-				<div className={_paginationNumber}>
-					1
-				</div>
-				<div className={_paginationNextPage} id='nextPageArrow' onClick={this.animationPulse.bind(this, 'nextPageArrow')}>
-					<KeyboardArrowRightRounded />
-				</div>
-				<div className={_paginationLastPage} id='lastPageArrow' onClick={this.animationPulse.bind(this, 'lastPageArrow')}>
-					<KeyboardCapslockRounded />
-				</div>
+				<Pagination />
 			</div>
 		)
 
