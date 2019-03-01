@@ -28,6 +28,7 @@ class App extends Component {
 		this.switchSearchBarActive = this.switchSearchBarActive.bind(this)
 		this.searchBarActiveAttr = this.searchBarActiveAttr.bind(this)
 		this.getMarvelCharacters = this.getMarvelCharacters.bind(this)
+		this.preLoadCards = this.preLoadCards.bind(this)
 	}
 
 	/**
@@ -104,6 +105,22 @@ class App extends Component {
 		setTimeout(() => (
 			element.className = initialClassList
 		), 600)
+	}
+
+	preLoadCards() {
+		console.log('hye')
+
+		for (let index = 0; index < 11; index++) {
+			console.log(index)
+		}
+
+		// for (let index; index < 11; index++) {
+			// console.log(index)
+				// <CharacterCard
+				// 	preLoad={true}
+				// 	// key={index}
+				// />
+		// }
 	}
 
 	/**
@@ -189,12 +206,14 @@ class App extends Component {
 
 		const cardList = () => (
 			<div className={_cardList}>
-				{this.state.characters.map((character, index) => (
-					<CharacterCard
-						character
-						key={index}
-					/>)
-				)}
+				{ this.state.characters.length > 0
+					?	this.state.characters.map((character, index) => (
+							<CharacterCard
+								character
+								key={index}
+							/>
+						))
+					: this.preLoadCards() }
 			</div>
 		)
 

@@ -23,14 +23,14 @@ class CharacterCard extends Component {
 		 */
 		const _root = 'character-card'
 		const _card = 'card'
-
+		const _preload = `${_card}-pre-load`
 
 		/**
 		 * render functions
 		 */
 		const main = (context) => (
-			<div className={`${_root} ${_card}`}>
-
+			<div className={`${_root} ${_card} ${this.props.preLoad ? _preload : ''}`}>
+			{console.log('hye card')}
 			</div>
 		)
 
