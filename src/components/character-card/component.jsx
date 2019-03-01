@@ -4,7 +4,7 @@
 import React, { Component } from 'react'
 import { MySpaceContext } from 'context/myspace'
 
-class Card extends Component {
+class CharacterCard extends Component {
 	constructor(props) {
 		super(props)
 			this.state = {}
@@ -21,14 +21,16 @@ class Card extends Component {
 		/**
 		 * classNames
 		 */
-		const _root = 'card'
+		const _root = 'character-card'
+		const _card = 'card'
 
 
 		/**
 		 * render functions
 		 */
 		const main = (context) => (
-			<div className={_root}>
+			<div className={`${_root} ${_card}`}>
+
 			</div>
 		)
 
@@ -40,4 +42,4 @@ class Card extends Component {
 	}
 }
 
-export default Card
+export default CharacterCard

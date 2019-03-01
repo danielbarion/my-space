@@ -2,7 +2,7 @@
  * dependencies
  */
 import React, { Component } from 'react'
-import Card from 'components/card/component'
+import CharacterCard from 'components/character-card/component'
 import Pagination from 'components/pagination/component'
 import {
 	Search
@@ -178,7 +178,7 @@ class App extends Component {
 		const cardList = () => (
 			<div className={_cardList}>
 				{this.state.characters.map((character, index) => (
-					<Card
+					<CharacterCard
 						character
 						key={index}
 					/>)
