@@ -5,7 +5,8 @@ import React, { Component } from 'react'
 import CharacterCard from 'components/character-card/component'
 import Pagination from 'components/pagination/component'
 import {
-	Search
+	Search,
+	Person
 } from '@material-ui/icons'
 
 class App extends Component {
@@ -126,6 +127,7 @@ class App extends Component {
 		 * classNames
 		 */
 		const _root = 'app'
+		const _person = `${_root}-person`
 		const _content = `${_root}-content`
 		const _contentHeader = `${_content}-header`
 		const _search = `${_contentHeader}-search`
@@ -139,7 +141,17 @@ class App extends Component {
 		 */
 		const main = () => (
 			<div className={_root}>
+				{person()}
 				{content()}
+			</div>
+		)
+
+		const person = () => (
+			<div className={_person}>
+				<Person />
+				<span>
+					Daniel Barion
+				</span>
 			</div>
 		)
 
