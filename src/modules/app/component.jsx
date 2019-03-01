@@ -102,13 +102,7 @@ class App extends Component {
 		 */
 		const main = () => (
 			<div className={_root}>
-				{navbar()}
 				{content()}
-			</div>
-		)
-
-		const navbar = () => (
-			<div className={_navbar}>
 			</div>
 		)
 
