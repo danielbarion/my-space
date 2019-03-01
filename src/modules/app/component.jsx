@@ -93,7 +93,6 @@ class App extends Component {
 		 * classNames
 		 */
 		const _root = 'app'
-		const _navbar = `${_root}-navbar`
 		const _content = `${_root}-content`
 		const _contentHeader = `${_content}-header`
 		const _search = `${_contentHeader}-search`
