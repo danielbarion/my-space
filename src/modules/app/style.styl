@@ -33,17 +33,30 @@
 		grid-template-areas 'header'\
 												'cards'\
 												'pagination'
-		grid-template-rows 35px auto 30px
+		grid-template-rows 95px auto 30px
 		position absolute
-		top 10rem
-		right 15rem
-		left 15rem
+		padding-top 1.5rem
+		padding-left 1rem
+		padding-right 1rem
+		top 10vh
+		// right 15rem
+		// left 15rem
+		+breakpoint(tablet)
+			grid-template-areas 'header'\
+													'cards'\
+													'pagination'
+			grid-template-rows 35px auto 30px
 
 		&-header
 			grid-area header
 			display grid
-			grid-template-areas 'search pagination'
-			grid-template-columns 1fr 1fr
+			grid-template-areas 'search'\
+											  	'pagination'
+			grid-template-rows 35px 60px
+
+			+breakpoint(tablet)
+				grid-template-areas 'search pagination'
+				grid-template-columns 1fr 1fr
 
 			&-search
 				display grid
@@ -52,7 +65,7 @@
 				align-items center
 				grid-area search
 				background #FFF
-				width 40px
+				width 100%
 				border-radius 20px
 				box-shadow 0 3px 5px 0 rgba(0,0,0,0.15),
 									0 2px 5px 1px rgba(97,218,251, 0.25),
@@ -61,8 +74,14 @@
 				cursor pointer
 				transition width 0.3s ease
 
+				+breakpoint(tablet)
+					width 40px
+
 				&[active=true]
-					width 20rem
+					width 100%
+
+					+breakpoint(tablet)
+						width 20rem
 
 				&-input
 					padding-left 0.6rem
@@ -124,5 +143,8 @@
 			display flex
 			align-content baseline
 			flex-wrap wrap
-			margin-top 1rem
-			padding-left 0.35rem
+			justify-content space-between
+
+			+breakpoint(tablet)
+				padding-left 0.35rem
+				margin-top 1rem

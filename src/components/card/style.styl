@@ -1,21 +1,37 @@
 .card
-	margin-top 1rem
-	margin-right 1rem
+	margin-top 3vw
 	height auto
 	width calc(20% - 1rem)
-	min-height 200px
-	min-width 160px
+	min-height 175px
+	min-width 43vw
 	background-color #fff
 	box-shadow 0 2px 5px 0 rgba(0,0,0,0.15),
 			0 2px 5px 1px rgba(97,218,251, 0.25),
 			inset 0 0.1px 0.5px 0.5px rgba(97,218,251, 0.25)
 
+	+breakpoint(mobileM)
+		margin-top 5vw
+
+	+breakpoint(tablet)
+		margin-top 1rem
+		margin-right 1rem
+		min-width 160px
+		min-height 200px
+		margin-top 1.5rem
+
 
 .card-pre-load
-	margin-top 1rem
+	margin-top 5vw
 	margin-right 1rem
 	height auto
 	width calc(20% - 1rem)
-	min-height 200px
-	min-width 160px
+	min-height 175px
+	min-width 43vw
 	background-color rgba(0, 0, 0, 0.25)
+
+	+breakpoint(tablet)
+		min-width 160px
+		min-height 200px
+		margin-top 1.5rem
+
+
