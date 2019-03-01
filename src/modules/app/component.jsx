@@ -143,7 +143,7 @@ class App extends Component {
 			</div>
 		)
 		const searchIcon = () => (
-			<div className={_searchIcon}>
+			<div className={_searchIcon} active={this.searchBarActiveAttr()}>
 				<Search />
 			</div>
 		)

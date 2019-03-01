@@ -90,7 +90,12 @@
 					justify-self flex-end
 
 					& svg
+						transition color 300ms
 						color rgba(140,148,155, 0.5)
+
+					&[active=true]
+						& svg
+							color #61DAFB
 
 			&-pagination
 				grid-area pagination
