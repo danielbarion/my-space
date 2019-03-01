@@ -61,6 +61,17 @@ class App extends Component {
 		}
 	}
 
+	animationPulse(id) {
+		const element = document.querySelector(`#${id}`)
+		const initialClassList = element.classList[0]
+
+		element.className = `${element.classList} animationPulse`
+
+		setTimeout(() => (
+			element.className = initialClassList
+		), 600)
+	}
+
 	/**
 	 * attrs
 	 */
@@ -158,19 +169,19 @@ class App extends Component {
 
 		const pagination = () => (
 			<div className={_pagination}>
-				<div className={_paginationFirstPage}>
+				<div className={_paginationFirstPage} id='firstPageArrow' onClick={this.animationPulse.bind(this, 'firstPageArrow')}>
 					<KeyboardCapslockRounded />
 				</div>
-				<div className={_paginationPreviousPage}>
+				<div className={_paginationPreviousPage} id='previousPageArrow' onClick={this.animationPulse.bind(this, 'previousPageArrow')}>
 					<KeyboardArrowLeftRounded />
 				</div>
 				<div className={_paginationNumber}>
 					1
 				</div>
-				<div className={_paginationNextPage}>
+				<div className={_paginationNextPage} id='nextPageArrow' onClick={this.animationPulse.bind(this, 'nextPageArrow')}>
 					<KeyboardArrowRightRounded />
 				</div>
-				<div className={_paginationLastPage}>
+				<div className={_paginationLastPage} id='lastPageArrow' onClick={this.animationPulse.bind(this, 'lastPageArrow')}>
 					<KeyboardCapslockRounded />
 				</div>
 			</div>

@@ -90,7 +90,7 @@
 					justify-self flex-end
 
 					& svg
-						color rgba(140,148,155, 0.3)
+						color rgba(140,148,155, 0.5)
 
 			&-pagination
 				grid-area pagination
@@ -105,42 +105,39 @@
 					justify-content center
 					margin-right 0.75rem
 					transform rotate(270deg)
-
-					& svg
-						cursor pointer
-						border-radius 50%
-						color rgba(140,148,155, 0.3)
-						box-shadow -3px 0 5px 0 rgba(0,0,0,0.15),
-									-2px 0 5px 1px rgba(97,218,251, 0.25),
-									inset 0 -0.1px 0.5px 0.5px rgba(97,218,251, 0.25)
+					background-color #61DAFB
+					border-radius 50%
+					padding 1px
+					cursor pointer
+					box-shadow -2px 0 5px 0 rgba(0,0,0,0.15),
+										 -2px 0 5px 1px rgba(97,218,251, 0.25)
+					color aliceblue
 
 				&-previous-page
 					display flex
 					align-items center
 					justify-content center
 					margin-right 0.75rem
-
-					& svg
-						cursor pointer
-						border-radius 50%
-						color rgba(140,148,155, 0.3)
-						box-shadow 0 3px 5px 0 rgba(0,0,0,0.15),
-									0 2px 5px 1px rgba(97,218,251, 0.25),
-									inset 0 0.1px 0.5px 0.5px rgba(97,218,251, 0.25)
+					background-color #61DAFB
+					border-radius 50%
+					padding 1px
+					cursor pointer
+					box-shadow 0 2px 5px 0 rgba(0,0,0,0.15),
+										 0 2px 5px 1px rgba(97,218,251, 0.25)
+					color aliceblue
 
 				&-next-page
 					display flex
 					align-items center
 					justify-content center
 					margin-left 0.75rem
-
-					& svg
-						cursor pointer
-						border-radius 50%
-						color rgba(140,148,155, 0.3)
-						box-shadow 0 3px 5px 0 rgba(0,0,0,0.15),
-									0 2px 5px 1px rgba(97,218,251, 0.25),
-									inset 0 0.1px 0.5px 0.5px rgba(97,218,251, 0.25)
+					background-color #61DAFB
+					border-radius 50%
+					padding 1px
+					cursor pointer
+					box-shadow 0 2px 5px 0 rgba(0,0,0,0.15),
+								  	 0 2px 5px 1px rgba(97,218,251, 0.25)
+					color aliceblue
 
 				&-last-page
 					display flex
@@ -148,14 +145,13 @@
 					justify-content center
 					margin-left 0.75rem
 					transform rotate(90deg)
-
-					& svg
-						cursor pointer
-						border-radius 50%
-						color rgba(140,148,155, 0.3)
-						box-shadow 3px 0 5px 0 rgba(0,0,0,0.15),
-									2px 0 5px 1px rgba(97,218,251, 0.25),
-									inset 0 -0.1px 0.5px 0.5px rgba(97,218,251, 0.25)
+					background-color #61DAFB
+					border-radius 50%
+					padding 1px
+					cursor pointer
+					box-shadow 3px 0 5px 0 rgba(0,0,0,0.15),
+										 2px 0 5px 1px rgba(97,218,251, 0.25)
+					color aliceblue
 
 				&-number
 					cursor pointer
@@ -168,8 +164,8 @@
 					max-height 10px
 					font-family 'ubuntu'
 					border-radius 50%
-					color rgba(140,148,155, 0.5)
-					box-shadow 0 3px 5px 0 rgba(0,0,0,0.15),
+					color rgba(140,148,155, 1)
+					box-shadow 0 2px 5px 0 rgba(0,0,0,0.15),
 								0 2px 5px 1px rgba(97,218,251, 0.25),
 								inset 0 0.1px 0.5px 0.5px rgba(97,218,251, 0.25)
 
@@ -188,6 +184,15 @@
 				min-height 200px
 				min-width 160px
 				background-color #fff
-				box-shadow 0 3px 5px 0 rgba(0,0,0,0.15),
+				box-shadow 0 2px 5px 0 rgba(0,0,0,0.15),
 						0 2px 5px 1px rgba(97,218,251, 0.25),
 						inset 0 0.1px 0.5px 0.5px rgba(97,218,251, 0.25)
+
+.animationPulse
+	animation pulse 600ms
+	box-shadow 0 0 0 10px rgba(#fff, 0)
+	border-radius 50%
+
+@keyframes pulse {
+  0% { box-shadow: 0 0 0 0 #61DAFB; }
+}
