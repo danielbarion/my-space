@@ -3,10 +3,21 @@
  */
 import React, { Component } from 'react'
 import { MySpaceContext } from 'context/myspace'
-import { debounce } from 'lodash'
+import { debounce, toNumber } from 'lodash'
 import MarvelApi from 'utils/marvel/api'
 import CharacterCard from 'components/character-card/component'
 import Pagination from 'components/pagination/component'
+import grootAmazing from 'assets/img/groot/amazing.jpg'
+import grootInSnow from 'assets/img/groot/groot-in-snow.jpg'
+import grootWalkingWithGroot from 'assets/img/groot/groot-walking-with-groot.jpg'
+import grootWithGroot from 'assets/img/groot/groot-with-groot.jpg'
+import grootListeningMusic from 'assets/img/groot/listening-music.jpg'
+import grootMindBreaked from 'assets/img/groot/mind-breaked.jpg'
+import grootPenguins from 'assets/img/groot/penguins.jpg'
+import grootRelaxing from 'assets/img/groot/relaxing.jpg'
+import grootSaddly from 'assets/img/groot/saddly.jpg'
+import grootSaddlyWorried from 'assets/img/groot/saddly-worried.jpg'
+import grootSoBeauty from 'assets/img/groot/so-beauty.jpg'
 import {
 	Search,
 	Person
@@ -16,6 +27,7 @@ class App extends Component {
 	constructor(props) {
 		super(props)
 			this.state = {
+				gettingData: false,
 				searchBar: {
 					searchBarExpanded: false,
 					searchValue: '',
@@ -48,6 +60,7 @@ class App extends Component {
 		this.searchBarActiveAttr = this.searchBarActiveAttr.bind(this)
 		this.getMarvelCharacters = this.getMarvelCharacters.bind(this)
 		this.preLoadCards = this.preLoadCards.bind(this)
+		this.searchResults = this.searchResults.bind(this)
 	}
 
 	/**
@@ -62,20 +75,37 @@ class App extends Component {
 	 * funcs
 	 */
 	getMarvelCharacters() {
-		let { pagination } = this.state
+		const {
+			pagination,
+			searchBar
+		} = this.state
+		let { gettingData } = this.state
 
-		MarvelApi.get({ pagination })
-		.then((response) => {
-			const { data } = response
-			pagination.total = data.total
-
-			console.log({ response })
-
+		if (!gettingData) {
 			this.setState({
-				characters: data.results,
-				pagination
+				gettingData: true
+			}, () => {
+				let params = {
+					pagination
+				}
+
+				if (searchBar.searchValue) {
+					params.searchBar = searchBar
+				}
+
+				MarvelApi.get(params)
+					.then((response) => {
+						const { data } = response
+						pagination.total = data.total
+
+						this.setState({
+							characters: data.results,
+							pagination,
+							gettingData
+						})
+					})
 			})
-		})
+		}
 	}
 
 	updatePage(page) {
@@ -91,6 +121,10 @@ class App extends Component {
 	switchSearchBarActive(event) {
 		const { searchBar } = this.state
 		const { type } = event
+
+		if (searchBar.searchValue) {
+			return
+		}
 
 		switch (type) {
 			case 'click':
@@ -142,6 +176,48 @@ class App extends Component {
 		return cards
 	}
 
+	getGroot() {
+		const grootImages = [
+			grootAmazing,
+			grootInSnow,
+			grootWalkingWithGroot,
+			grootWithGroot,
+			grootListeningMusic,
+			grootMindBreaked,
+			grootPenguins,
+			grootRelaxing,
+			grootSaddly,
+			grootSaddlyWorried,
+			grootSoBeauty
+		]
+
+		const randomGrootIndex = () => {
+			const index = Math.floor(Math.random() * grootImages.length)
+			const lastRandomGrootIndex = localStorage.getItem('lastRandomGrootIndex')
+
+			if (lastRandomGrootIndex && toNumber(lastRandomGrootIndex) === index) {
+				randomGrootIndex()
+			} else {
+				localStorage.setItem('lastRandomGrootIndex', index)
+
+				return index
+			}
+		}
+
+		return grootImages[randomGrootIndex()]
+	}
+
+	searchResults(event) {
+		const { searchBar } = this.state
+		const { value } = event.target
+
+		searchBar.searchValue = value
+
+		this.setState({
+			searchBar
+		}, () => this.getMarvelCharactersDebounced())
+	}
+
 	/**
 	 * attrs
 	 */
@@ -166,6 +242,7 @@ class App extends Component {
 		const _person = `${_root}-person`
 		const _content = `${_root}-content`
 		const _contentHeader = `${_content}-header`
+		const _noResults = `${_content}-no-content`
 		const _search = `${_contentHeader}-search`
 		const _searchIcon = `${_search}-icon`
 		const _searchInput = `${_search}-input`
@@ -214,7 +291,7 @@ class App extends Component {
 
 		const searchInput = () => (
 			<div className={_searchInput} active={this.searchBarActiveAttr()}>
-				<input type='text' id='search-input' name='search' onBlur={this.switchSearchBarActive} />
+				<input type='text' id='search-input' name='search' onBlur={this.switchSearchBarActive} onChange={this.searchResults} />
 			</div>
 		)
 		const searchIcon = () => (
@@ -232,7 +309,9 @@ class App extends Component {
 								key={index}
 							/>
 						))
-					: this.preLoadCards(10) }
+					: this.state.gettingData
+						? this.preLoadCards(10)
+						: noResults()}
 			</div>
 		)
 
@@ -241,6 +320,12 @@ class App extends Component {
 				<Pagination
 					pagination={this.state.pagination}
 				/>
+			</div>
+		)
+
+		const noResults = () => (
+			<div className={_noResults}>
+				<img src={this.getGroot()} alt="Groot"/>
 			</div>
 		)
 
