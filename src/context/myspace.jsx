@@ -6,8 +6,9 @@ class MySpaceProvider extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
+      firstTimeInApp: true
     }
-  }
+}
 
   render() {
     return (

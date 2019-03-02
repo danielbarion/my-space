@@ -2,6 +2,7 @@
  * dependencies
  */
 import React, { Component } from 'react'
+import { MySpaceContext } from 'context/myspace'
 import CharacterCard from 'components/character-card/component'
 import Pagination from 'components/pagination/component'
 import {
@@ -13,8 +14,11 @@ class App extends Component {
 	constructor(props) {
 		super(props)
 			this.state = {
-				firstTimeInApp: true,
-				searchBarExpanded: false,
+				searchBar: {
+					searchBarExpanded: false,
+					searchValue: '',
+					searchResults: []
+				},
 				characters: [],
 				pagination: {
 					page: 1,
@@ -22,7 +26,7 @@ class App extends Component {
 				}
 			}
 
-		/**
+			/**
 		 * binded funcs
 		 */
 		this.switchSearchBarActive = this.switchSearchBarActive.bind(this)
@@ -70,22 +74,25 @@ class App extends Component {
 	}
 
 	switchSearchBarActive(event) {
-		const { searchBarExpanded } = this.state
+		const { searchBar } = this.state
 		const { type } = event
 
 			switch (type) {
 			case 'click':
-				if (!searchBarExpanded) {
+				if (!searchBar.searchBarExpanded) {
 					const searchInput = document.querySelector('#search-input')
 
-					this.setState({ searchBarExpanded: true }, () => {
+					searchBar.searchBarExpanded = true
+
+					this.setState({ searchBar }, () => {
 						searchInput.focus()
 					})
 				}
 				break
 			case 'blur':
-				if (searchBarExpanded) {
-					this.setState({ searchBarExpanded: false })
+				if (searchBar.searchBarExpanded) {
+					searchBar.searchBarExpanded = false
+					this.setState({ searchBar })
 				}
 				break
 
@@ -126,7 +133,7 @@ class App extends Component {
 	searchBarActiveAttr() {
 		let active = ''
 
-		if (this.state.searchBarExpanded) {
+		if (this.state.searchBar.searchBarExpanded) {
 			active = 'true'
 		}
 
@@ -153,7 +160,8 @@ class App extends Component {
 		/**
 		 * render functions
 		 */
-		const main = () => (
+		const main = (context) => (
+			console.log(context),
 			<div className={_root}>
 				{person()}
 				{content()}
@@ -220,7 +228,11 @@ class App extends Component {
 			</div>
 		)
 
-		return main()
+		return (
+			<MySpaceContext.Consumer>
+				{(context) => main(context)}
+			</MySpaceContext.Consumer>
+		)
 	}
 }
 

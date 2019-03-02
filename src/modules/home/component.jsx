@@ -2,13 +2,13 @@
  * dependencies
  */
 import React, { Component } from 'react'
+import { MySpaceContext } from 'context/myspace'
 import logoSvg from 'assets/svg/logo.svg'
 
 class Home extends Component {
 	constructor(props) {
 		super(props)
-			this.state = {
-			}
+			this.state = {}
 
 		/**
 		 * binded funcs
@@ -67,7 +67,11 @@ class Home extends Component {
 			</div>
 		)
 
-		return main()
+		return (
+			<MySpaceContext.Consumer>
+				{(context) => main(context)}
+			</MySpaceContext.Consumer>
+		)
 	}
 }
 
