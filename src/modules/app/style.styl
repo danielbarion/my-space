@@ -149,9 +149,12 @@
 			&-pagination
 				grid-area pagination
 				display flex
-				justify-content flex-end
+				justify-content center
 				align-items center
 				padding-right 0.75rem
+
+				+breakpoint(tablet)
+					justify-content flex-end
 
 		&-card-list
 			display flex
