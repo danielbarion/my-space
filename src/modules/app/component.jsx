@@ -107,20 +107,19 @@ class App extends Component {
 		), 600)
 	}
 
-	preLoadCards() {
-		console.log('hye')
+	preLoadCards(amount) {
+		const cards = []
 
-		for (let index = 0; index < 11; index++) {
-			console.log(index)
+		for (let index = 0; index < amount; index++) {
+			cards.push(
+				<CharacterCard
+					preLoad={true}
+					key={index}
+				/>
+			)
 		}
 
-		// for (let index; index < 11; index++) {
-			// console.log(index)
-				// <CharacterCard
-				// 	preLoad={true}
-				// 	// key={index}
-				// />
-		// }
+		return cards
 	}
 
 	/**
@@ -213,7 +212,7 @@ class App extends Component {
 								key={index}
 							/>
 						))
-					: this.preLoadCards() }
+					: this.preLoadCards(10) }
 			</div>
 		)
 
