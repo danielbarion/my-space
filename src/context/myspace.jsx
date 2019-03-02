@@ -8,8 +8,11 @@ class MySpaceProvider extends React.Component {
     this.state = {
       firstTimeInApp: true
     }
-}
+  }
 
+	/**
+	 * React Render
+	 */
   render() {
     return (
       <MySpaceContext.Provider value={{}}>

@@ -85,8 +85,8 @@ class Card extends Component {
 	}
 
 	/**
-	* React Render
-	*/
+	 * React Render
+	 */
 	render() {
 		/**
 		 * classNames

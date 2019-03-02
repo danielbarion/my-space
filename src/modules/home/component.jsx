@@ -26,8 +26,8 @@ class Home extends Component {
 	}
 
 	/**
-	* React Render
-	*/
+	 * React Render
+	 */
 	render() {
 		/**
 		 * classNames

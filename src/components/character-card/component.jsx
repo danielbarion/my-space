@@ -15,8 +15,8 @@ class CharacterCard extends Component {
 	 */
 
 	/**
-	* React Render
-	*/
+	 * React Render
+	 */
 	render() {
 		/**
 		 * classNames
