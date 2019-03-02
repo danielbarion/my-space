@@ -84,6 +84,7 @@ class App extends Component {
 	updatePage(page) {
 		const { pagination } = this.state
 		pagination.page = page
+
 		this.setState({
 			pagination,
 			characters: []
@@ -178,7 +179,6 @@ class App extends Component {
 		 * render functions
 		 */
 		const main = (context) => (
-			console.log(context),
 			<div className={_root}>
 				{person()}
 				{content()}
