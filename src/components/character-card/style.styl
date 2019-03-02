@@ -1,2 +1,9 @@
 .character-card
-	color aliceblue
+	display grid
+	grid-template-areas 'thumbnail'
+
+	&-thumbnail
+		grid-area thumbnail
+
+		& img
+			max-width 60px

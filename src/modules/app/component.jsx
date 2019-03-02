@@ -208,7 +208,7 @@ class App extends Component {
 				{ this.state.characters.length > 0
 					?	this.state.characters.map((character, index) => (
 							<CharacterCard
-								character
+								data={character}
 								key={index}
 							/>
 						))

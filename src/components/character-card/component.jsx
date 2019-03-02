@@ -24,6 +24,7 @@ class CharacterCard extends Component {
 		const _root = 'character-card'
 		const _card = 'card'
 		const _preload = `${_card}-pre-load`
+		const _thumbnail = `${_root}-thumbnail`
 		const _animationLoading = 'animationLoading'
 
 		/**
@@ -31,7 +32,18 @@ class CharacterCard extends Component {
 		 */
 		const main = (context) => (
 			<div className={`${_root} ${this.props.preLoad ? `${_preload} ${_animationLoading}` : _card}`}>
-			{console.log('hye card', context)}
+				{
+					!this.props.preLoad
+						? thumbnail()
+						: ''
+				}
+			{console.log('hye card', this.props)}
+			</div>
+		)
+
+		const thumbnail = () => (
+			<div className={_thumbnail}>
+				<img src={`${this.props.data.thumbnail.path}.${this.props.data.thumbnail.extension}`} alt='Thumbnail' />
 			</div>
 		)
 
