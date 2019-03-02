@@ -24,10 +24,54 @@ class Card extends Component {
 	 * funcs
 	 */
 	animationPulse(id) {
+		const { pagination } = this.props
 		const element = document.querySelector(`#${id}`)
 		const initialClassList = element.classList[0]
 
 		element.className = `${element.classList} animationPulse`
+
+		let page = pagination.page
+		const lastPage = parseInt(pagination.total / 10)
+
+		switch (id) {
+			case 'firstPageArrow':
+				if (page === 1) {
+					return
+				}
+
+				page = 1
+
+				break
+			case 'previousPageArrow':
+				if (page === 1) {
+					return
+				}
+
+				page -= 1
+
+				break
+			case 'nextPageArrow':
+				if (page === lastPage) {
+					return
+				}
+
+				page += 1
+
+				break
+			case 'lastPageArrow':
+				if (page === lastPage) {
+					return
+				}
+
+				page = lastPage
+
+				break
+
+			default:
+				break
+		}
+
+		pagination.updatePage(page)
 
 		setTimeout(() => (
 			element.className = initialClassList
@@ -60,7 +104,7 @@ class Card extends Component {
 					<KeyboardArrowLeftRounded />
 				</div>
 				<div className={_paginationNumber}>
-					1
+					{this.props.pagination.page}
 				</div>
 				<div className={_paginationNextPage} id='nextPageArrow' onClick={this.animationPulse.bind(this, 'nextPageArrow')}>
 					<KeyboardArrowRightRounded />

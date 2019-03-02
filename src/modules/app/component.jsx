@@ -21,12 +21,20 @@ class App extends Component {
 				},
 				characters: [],
 				pagination: {
+					/**
+					 * vars
+					 */
 					page: 1,
-					total: 0
+					total: 0,
+
+					/**
+					 * funcs
+					 */
+					updatePage: this.updatePage.bind(this)
 				}
 			}
 
-			/**
+		/**
 		 * binded funcs
 		 */
 		this.switchSearchBarActive = this.switchSearchBarActive.bind(this)
@@ -48,7 +56,7 @@ class App extends Component {
 	 */
 	getMarvelCharacters() {
 		let { pagination } = this.state
-		const url = `https://gateway.marvel.com:443/v1/public/characters?limit=10&offset=${pagination.page > 1 ? pagination.page : 0}&apikey=7f01d88c02623145666b4af6c47029d6`
+		const url = `https://gateway.marvel.com:443/v1/public/characters?limit=10&offset=${pagination.page > 1 ? (pagination.page * 10) : 0}&apikey=7f01d88c02623145666b4af6c47029d6`
 
 		fetch(url).then(response => {
 			const { status } = response
@@ -73,11 +81,20 @@ class App extends Component {
 		})
 	}
 
+	updatePage(page) {
+		const { pagination } = this.state
+		pagination.page = page
+		this.setState({
+			pagination,
+			characters: []
+		}, () => this.getMarvelCharacters())
+	}
+
 	switchSearchBarActive(event) {
 		const { searchBar } = this.state
 		const { type } = event
 
-			switch (type) {
+		switch (type) {
 			case 'click':
 				if (!searchBar.searchBarExpanded) {
 					const searchInput = document.querySelector('#search-input')
@@ -224,7 +241,9 @@ class App extends Component {
 
 		const pagination = () => (
 			<div className={_pagination}>
-				<Pagination />
+				<Pagination
+					pagination={this.state.pagination}
+				/>
 			</div>
 		)
 
