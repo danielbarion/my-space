@@ -39,7 +39,6 @@ class CharacterCard extends Component {
 						? content()
 						: ''
 				}
-			{console.log('hye card', this.props)}
 			</div>
 		)
 

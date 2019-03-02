@@ -64,8 +64,6 @@ class App extends Component {
 				pagination
 			})
 
-
-			console.log({response})
 		}).catch(error => {
 			console.error(error)
 		})
