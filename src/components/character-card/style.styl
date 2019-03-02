@@ -1,9 +1,13 @@
 .character-card
 	display grid
 	grid-template-areas 'thumbnail'
+	grid-template-rows auto
 
 	&-thumbnail
 		grid-area thumbnail
+		height 200px
 
 		& img
-			max-width 60px
+			max-width 100%
+			height 200px
+			border-radius 10px
