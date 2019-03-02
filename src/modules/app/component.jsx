@@ -4,6 +4,7 @@
 import React, { Component } from 'react'
 import { MySpaceContext } from 'context/myspace'
 import { debounce } from 'lodash'
+import MarvelApi from 'utils/marvel/api'
 import CharacterCard from 'components/character-card/component'
 import Pagination from 'components/pagination/component'
 import {
@@ -62,28 +63,18 @@ class App extends Component {
 	 */
 	getMarvelCharacters() {
 		let { pagination } = this.state
-		const url = `https://gateway.marvel.com:443/v1/public/characters?limit=10&offset=${pagination.page > 1 ? (pagination.page * 10) : 0}&apikey=7f01d88c02623145666b4af6c47029d6`
 
-		fetch(url).then(response => {
-			const { status } = response
-
-			if (status !== 200) {
-				console.warn('status of response !== 200')
-				return
-			}
-
-			return response.json()
-		}).then(response => {
+		MarvelApi.get({ pagination })
+		.then((response) => {
 			const { data } = response
 			pagination.total = data.total
+
+			console.log({ response })
 
 			this.setState({
 				characters: data.results,
 				pagination
 			})
-
-		}).catch(error => {
-			console.error(error)
 		})
 	}
 
