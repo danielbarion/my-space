@@ -39,13 +39,17 @@
 		padding-left 1rem
 		padding-right 1rem
 		top 10vh
-		// right 15rem
-		// left 15rem
+
 		+breakpoint(tablet)
 			grid-template-areas 'header'\
 													'cards'\
 													'pagination'
 			grid-template-rows 35px auto 30px
+
+		+breakpoint(laptopL)
+			margin-right 16vw
+			margin-left 16vw
+
 
 		&-header
 			grid-area header
