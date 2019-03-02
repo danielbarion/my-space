@@ -50,7 +50,6 @@
 			margin-right 16vw
 			margin-left 16vw
 
-
 		&-header
 			grid-area header
 			display grid
@@ -77,6 +76,12 @@
 				border 1px solid aliceblue
 				cursor pointer
 				transition width 0.3s ease
+
+				&:hover,
+				&:focus,
+				&:active
+					outline none
+					-webkit-tap-highlight-color transparent
 
 				+breakpoint(tablet)
 					width 40px
@@ -120,8 +125,11 @@
 						&::placeholder
 							color #ababab
 
-						&:focus
-							outline 0
+						&:hover,
+						&:focus,
+						&:active
+							outline none
+							-webkit-tap-highlight-color transparent
 
 				&-icon
 					grid-area icon
