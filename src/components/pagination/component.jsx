@@ -71,11 +71,17 @@ class Card extends Component {
 				break
 		}
 
-		pagination.updatePage(page)
+		this.updatePaginationPage(page)
 
 		setTimeout(() => (
 			element.className = initialClassList
 		), 600)
+	}
+
+	updatePaginationPage(page) {
+		const { pagination } = this.props
+
+		pagination.updatePage(page)
 	}
 
 	/**

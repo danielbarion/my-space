@@ -3,6 +3,7 @@
  */
 import React, { Component } from 'react'
 import { MySpaceContext } from 'context/myspace'
+import { debounce } from 'lodash'
 import CharacterCard from 'components/character-card/component'
 import Pagination from 'components/pagination/component'
 import {
@@ -33,6 +34,11 @@ class App extends Component {
 					updatePage: this.updatePage.bind(this)
 				}
 			}
+
+		/**
+		 * debounced funcs
+		 */
+		this.getMarvelCharactersDebounced = debounce(() => this.getMarvelCharacters(), 1000)
 
 		/**
 		 * binded funcs
@@ -88,7 +94,7 @@ class App extends Component {
 		this.setState({
 			pagination,
 			characters: []
-		}, () => this.getMarvelCharacters())
+		}, () => this.getMarvelCharactersDebounced())
 	}
 
 	switchSearchBarActive(event) {
