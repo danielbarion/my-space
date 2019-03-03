@@ -37,3 +37,75 @@
 
 			& svg
 				transform rotate(90deg)
+
+	&-modal
+		display grid
+		grid-template-areas 'header'\
+											  'content'
+		grid-template-rows 20px 1fr
+		height auto
+		width calc(100vw - 2rem)
+		border-radius 10px
+		background-color #FFFFFF
+		box-shadow 0 3px 10px 0 rgba(162,61,196,0.15)
+		position fixed
+		z-index 3
+		left 0
+		top 30%
+		color black
+		margin 1rem
+
+		+breakpoint(tablet)
+			max-width 20rem
+			left 30%
+
+		&-header
+			display flex
+			justify-content flex-end
+			margin 0.3rem
+
+		&-content
+			padding 1rem
+
+			&-input
+				margin-top 1.5rem
+
+		&-button
+			font-family: 'Ubuntu', sans-serif;
+			color aliceblue
+			min-width 120px
+			height 30px
+			display flex
+			justify-content center
+			justify-self center
+			align-items center
+			grid-area button
+			padding-top 0.5rem
+			padding-bottom 0.5rem
+			padding-right 1.5rem
+			padding-left 1.5rem
+			margin-top 1.75rem
+			background-color #61DAFB
+			border-radius 10px
+			position relative
+			cursor pointer
+			z-index 2
+			user-select none
+			box-shadow 0 3px 5px 0 rgba(0,0,0,0.15),
+								0 2px 5px 1px rgba(191,212,214,0.54),
+								0 2px 5px 1px rgba(97,218,251, 0.5)
+
+			&:active
+				box-shadow inset 0 3px 5px 0 rgba(0,0,0,0.15),
+									inset 0 2px 5px 1px rgba(191,212,214,0.54),
+									inset 0 2px 5px 1px rgba(97,218,251, 0.5)
+
+	&-overlay
+		height 100vh
+		width 100vw
+		opacity 0.8
+		background-color #979797
+		position fixed
+		z-index 3
+		top 0
+		left 0

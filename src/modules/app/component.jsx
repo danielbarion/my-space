@@ -391,8 +391,9 @@ class App extends Component {
 		 * classNames
 		 */
 		const _root = 'app'
-		const _person = `${_root}-person`
-		const _sideNav = `${_root}-nav`
+		const _header = `${_root}-header`
+		const _person = `${_header}-person`
+		const _sideNav = `${_header}-nav`
 		const _content = `${_root}-content`
 		const _contentHeader = `${_content}-header`
 		const _search = `${_contentHeader}-search`
@@ -414,9 +415,15 @@ class App extends Component {
 		 */
 		const main = (context) => (
 			<div className={_root}>
+				{header()}
+				{content()}
+			</div>
+		)
+
+		const header = () => (
+			<div className={_header}>
 				{sideNav()}
 				{person()}
-				{content()}
 			</div>
 		)
 

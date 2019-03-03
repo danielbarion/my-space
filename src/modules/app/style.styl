@@ -1,37 +1,41 @@
 .app
 	display grid
-	grid-template-areas 'content'
-	grid-template-rows auto
+	grid-template-areas 'appHeader'\
+											'content'
+	grid-template-rows 75px auto
 	height 100vh
 	width 100%
 	background-color #fff
 
-	&-person
+	&-header
+		grid-area appHeader
 		display flex
 		align-items center
-		background-color #61DAFB
-		position absolute
-		top 1rem
-		right 0
-		padding-top 0.5rem
-		padding-bottom 0.5rem
-		padding-right 1rem
-		padding-left 1rem
-		cursor pointer
-		color aliceblue
-		border-top-left-radius 15px
-		border-bottom-left-radius 15px
-		font-family ubuntu
-		box-shadow 0 3px 5px 0 rgba(0,0,0,0.15),
-					0 2px 5px 1px rgba(97,218,251, 0.25)
 
-		& span
-			margin-left 0.5rem
+		&-person
+			display flex
+			align-items center
+			background-color #61DAFB
+			position absolute
+			right 0
+			padding-top 0.5rem
+			padding-bottom 0.5rem
+			padding-right 1rem
+			padding-left 1rem
+			cursor pointer
+			color aliceblue
+			border-top-left-radius 15px
+			border-bottom-left-radius 15px
+			font-family ubuntu
+			box-shadow 0 3px 5px 0 rgba(0,0,0,0.15),
+						0 2px 5px 1px rgba(97,218,251, 0.25)
 
-	&-nav
-		position absolute
-		top 1.25rem
-		left 1rem
+			& span
+				margin-left 0.5rem
+
+		&-nav
+			position absolute
+			left 1rem
 
 	&-content
 		display grid

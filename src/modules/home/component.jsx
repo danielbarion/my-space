@@ -20,9 +20,7 @@ class Home extends Component {
 	 * funcs
 	 */
 	goToApp() {
-		setTimeout(() => (
-			this.props.history.push(`/app`)
-		), 150)
+		this.props.history.push(`/app`)
 	}
 
 	/**
