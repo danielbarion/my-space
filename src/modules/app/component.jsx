@@ -99,7 +99,8 @@ class App extends Component {
 	getMarvelCharacters() {
 		const {
 			pagination,
-			searchBar
+			searchBar,
+			favorites
 		} = this.state
 
 		let params = {
@@ -121,6 +122,16 @@ class App extends Component {
 
 				const { data } = response
 				pagination.total = data.total
+
+				if (favorites.length > 0) {
+					favorites.forEach(item => {
+						data.results.forEach(result => {
+							if (item.id === result.id) {
+								result.favorite = true
+							}
+						})
+					})
+				}
 
 				this.setState({
 					characters: data.results,
