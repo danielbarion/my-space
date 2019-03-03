@@ -98,37 +98,31 @@ class App extends Component {
 			pagination,
 			searchBar
 		} = this.state
-		let { gettingData } = this.state
 
-		if (!gettingData) {
-			this.setState({
-				gettingData: true
-			}, () => {
-				let params = {
-					pagination
-				}
-
-				if (searchBar.searchValue) {
-					params.searchBar = searchBar
-				}
-
-				MarvelApi.get(params)
-					.then((response) => {
-						if (!response) {
-							return
-						}
-
-						const { data } = response
-						pagination.total = data.total
-
-						this.setState({
-							characters: data.results,
-							pagination,
-							gettingData
-						})
-					})
-			})
+		let params = {
+			pagination
 		}
+
+		if (searchBar.searchValue) {
+			params.searchBar = searchBar
+		}
+
+		MarvelApi.get(params)
+			.then((response) => {
+				if (!response) {
+					return
+				}
+
+				const { data } = response
+				pagination.total = data.total
+
+				this.setState({
+					characters: data.results,
+					pagination,
+					gettingData: false
+				})
+			}
+		)
 	}
 
 	calcItemsPerPage() {
@@ -179,7 +173,8 @@ class App extends Component {
 
 		this.setState({
 			pagination,
-			characters: []
+			characters: [],
+			gettingData: true
 		}, () => this.getMarvelCharactersDebounced())
 	}
 
@@ -327,7 +322,8 @@ class App extends Component {
 		searchBar.searchValue = value
 
 		this.setState({
-			searchBar
+			searchBar,
+			gettingData: true
 		}, () => this.getMarvelCharactersDebounced())
 	}
 
