@@ -20,7 +20,7 @@ class App extends Component {
 	constructor(props) {
 		super(props)
 			this.state = {
-				gettingData: false,
+				gettingData: true,
 				searchBar: {
 					searchBarExpanded: false,
 					searchValue: '',
