@@ -84,6 +84,10 @@ class App extends Component {
 
 				MarvelApi.get(params)
 					.then((response) => {
+						if (!response) {
+							return
+						}
+
 						const { data } = response
 						pagination.total = data.total
 
