@@ -132,12 +132,14 @@ class App extends Component {
 		// the disponible space / card size
 		// reason for the calc above: out of time to test correctly calc
 
+		if (window.innerWidth < 768) {
+			favoritesPagination.itemsPerPage = 1
+		}
 		if (window.innerWidth >= 768) {
 			favoritesPagination.itemsPerPage = 3
-		} else if (window.innerWidth >= 1024) {
+		}
+		if (window.innerWidth >= 1024) {
 			favoritesPagination.itemsPerPage = 4
-		} else {
-			favoritesPagination.itemsPerPage = 1
 		}
 
 		this.setState({ favoritesPagination })
