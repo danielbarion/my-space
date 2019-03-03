@@ -36,7 +36,10 @@ class App extends Component {
 					 * funcs
 					 */
 					updatePage: this.updatePage.bind(this)
-				}
+				},
+				favorites: [
+
+				]
 			}
 
 		/**
@@ -52,6 +55,7 @@ class App extends Component {
 		this.getMarvelCharacters = this.getMarvelCharacters.bind(this)
 		this.preLoadCards = this.preLoadCards.bind(this)
 		this.searchResults = this.searchResults.bind(this)
+		this.switchFavoriteItem = this.switchFavoriteItem.bind(this)
 	}
 
 	/**
@@ -101,6 +105,26 @@ class App extends Component {
 					})
 			})
 		}
+	}
+
+	switchFavoriteItem(item) {
+		let { favorites } = this.state
+
+		if (!item) {
+			return
+		}
+
+		favorites = favorites.filter(favItem => favItem.id !== item.id)
+
+		if (!item.favorite) {
+			favorites.push(item)
+		}
+
+		item.favorite = !item.favorite
+
+		this.setState({
+			favorites
+		})
 	}
 
 	updatePage(page) {
@@ -274,6 +298,7 @@ class App extends Component {
 							<CharacterCard
 								data={character}
 								key={index}
+								switchFavoriteItem={this.switchFavoriteItem.bind(this, character)}
 							/>
 						))
 					: this.state.gettingData

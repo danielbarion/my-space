@@ -3,6 +3,10 @@
  */
 import React, { Component } from 'react'
 import { MySpaceContext } from 'context/myspace'
+import {
+	FavoriteRounded,
+	FavoriteBorderRounded
+} from '@material-ui/icons'
 
 class CharacterCard extends Component {
 	constructor(props) {
@@ -28,17 +32,16 @@ class CharacterCard extends Component {
 		const _thumbnail = `${_content}-thumbnail`
 		const _thumbnailOverlay = `${_thumbnail}-overlay`
 		const _animationLoading = 'animationLoading'
+		const _favorite = `${_thumbnail}-favorite`
 
 		/**
 		 * render functions
 		 */
 		const main = (context) => (
 			<div className={`${_root} ${this.props.preLoad ? `${_preload} ${_animationLoading}` : _card}`}>
-				{
-					!this.props.preLoad
+				{!this.props.preLoad
 						? content()
-						: ''
-				}
+						: ''}
 			</div>
 		)
 
@@ -51,9 +54,22 @@ class CharacterCard extends Component {
 		const thumbnail = () => (
 			<div className={_thumbnail}>
 				<img src={`${this.props.data.thumbnail.path}.${this.props.data.thumbnail.extension}`} alt='Thumbnail' />
-				<div className={_thumbnailOverlay}>
-					<span>{this.props.data.name}</span>
-				</div>
+				{overlay()}
+				{favorite()}
+			</div>
+		)
+
+		const overlay = () => (
+			<div className={_thumbnailOverlay}>
+				<span>{this.props.data.name}</span>
+			</div>
+		)
+
+		const favorite = () => (
+			<div className={_favorite} onClick={this.props.switchFavoriteItem || null}>
+				{this.props.data.favorite
+					? <FavoriteRounded />
+					:	<FavoriteBorderRounded />}
 			</div>
 		)
 
