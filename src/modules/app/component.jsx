@@ -7,6 +7,8 @@ import { debounce } from 'lodash'
 import MarvelApi from 'utils/marvel/api'
 import CharacterCard from 'components/character-card/component'
 import Pagination from 'components/pagination/component'
+import Groot from 'assets/img/groot/saddly-worried.jpg'
+import GrootSaddly from 'assets/img/groot/saddly.jpg'
 import {
 	Search,
 	Person
@@ -208,6 +210,10 @@ class App extends Component {
 		const _searchIcon = `${_search}-icon`
 		const _searchInput = `${_search}-input`
 		const _cardList = `${_content}-card-list`
+		const _outOfData = `${_cardList}-out-of-data`
+		const _outOfDataMessage = `${_outOfData}-message`
+		const _groot = `${_outOfData}-groot`
+		const _grootSaddly = `${_outOfData}-groot-saddly`
 		const _pagination = `${_contentHeader}-pagination`
 
 		/**
@@ -285,8 +291,16 @@ class App extends Component {
 		)
 
 		const outOfData = () => (
-			<div className={_pagination}>
-				Lorem Ipsum
+			<div className={_outOfData}>
+				<div className={_grootSaddly}>
+					<img src={GrootSaddly} alt='Groot Saddly'/>
+				</div>
+				<div className={_outOfDataMessage}>
+					Não encontramos resultados para a sua busca
+				</div>
+				<div className={_groot}>
+					<img src={Groot} alt='Groot'/>
+				</div>
 			</div>
 		)
 

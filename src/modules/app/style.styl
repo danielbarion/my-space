@@ -3,7 +3,7 @@
 	grid-template-areas 'content'
 	grid-template-rows auto
 	height 100vh
-	width 100vw
+	width 100%
 	background-color #fff
 
 	&-person
@@ -166,3 +166,53 @@
 				padding-left 0.35rem
 				margin-top 1rem
 				justify-content flex-start
+
+			&-out-of-data
+				display grid
+				grid-template-areas 'groot'
+				grid-template-columns 1fr
+				width 100%
+				padding-top 1.5rem
+
+				+breakpoint(tablet)
+					grid-template-areas 'saddly message groot'
+					grid-template-columns 1fr 1fr 1fr
+
+				&-groot-saddly
+					grid-area saddly
+					display none
+					justify-self flex-start
+
+					& img
+						border-radius 10px
+						max-width 225px
+						max-height 400px
+
+					+breakpoint(tablet)
+						display flex
+
+				&-message
+					grid-area message
+					display none
+					align-items center
+					text-align center
+					color rgba(0, 0, 0, 0.3)
+					font-size 36px
+					font-family ubuntu
+					line-height 1.5
+
+					+breakpoint(tablet)
+						display flex
+
+				&-groot
+					grid-area groot
+					display flex
+					justify-self center
+
+					& img
+						border-radius 10px
+						max-height 400px
+						max-width 225px
+
+					+breakpoint(tablet)
+						justify-self flex-end
