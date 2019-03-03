@@ -39,7 +39,7 @@ class App extends Component {
 					 */
 					updatePage: this.updatePage.bind(this)
 				},
-				favorites: [],
+				favorites: this.getFavorites() || [],
 				visibleFavorites: [],
 				favoritesPagination: {
 					/**
@@ -82,13 +82,13 @@ class App extends Component {
 
 		window.addEventListener('resize', () => {
 			this.calcItemsPerPage()
-			this.setVisibleFavorites()
 		})
 	}
 
 	componentDidMount() {
 		setTimeout(() => {
 			this.calcItemsPerPage()
+			this.setVisibleFavorites()
 		}, 350)
 	}
 
@@ -128,6 +128,19 @@ class App extends Component {
 				})
 			}
 		)
+	}
+
+	getFavorites() {
+		let favorites = localStorage.getItem('favorites')
+
+		if (favorites) {
+			favorites = JSON.parse(favorites)
+
+			return favorites
+		}
+
+		return []
+
 	}
 
 	calcItemsPerPage() {
@@ -177,6 +190,8 @@ class App extends Component {
 		item.favorite = !item.favorite
 
 		favoritesPagination.total = favorites.length
+
+		localStorage.setItem('favorites', JSON.stringify(favorites))
 
 		this.setState({
 			favorites,
