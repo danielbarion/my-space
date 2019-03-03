@@ -1,0 +1,39 @@
+.side-actions
+	color aliceblue
+
+	&-add
+		display flex
+		justify-content space-around
+		align-items center
+		background-color #61DAFB
+		width 32px
+		height 32px
+		border-radius 15px
+		box-shadow 0 3px 5px 0 rgba(0,0,0,0.15),
+				0 2px 5px 1px rgba(97,218,251, 0.25),
+				inset 0 0.1px 0.5px 0.5px rgba(97,218,251, 0.25)
+		cursor pointer
+		transition width 200ms
+
+		& span
+			transition opacity 300ms
+			text-overflow ellipsis
+			opacity 0
+			display none
+			overflow hidden
+			white-space nowrap
+
+		& svg
+			transition transform 300ms
+
+		&:hover
+			width 160px
+			border-radius 15px
+			padding-right 0.5rem
+
+			& span
+				display flex
+				opacity 1
+
+			& svg
+				transform rotate(90deg)
