@@ -83,6 +83,7 @@ class App extends Component {
 
 		window.addEventListener('resize', () => {
 			this.calcItemsPerPage()
+			this.setVisibleFavorites()
 		})
 	}
 
