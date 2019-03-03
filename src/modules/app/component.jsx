@@ -366,8 +366,9 @@ class App extends Component {
 		const _searchInput = `${_search}-input`
 		const _cardList = `${_content}-card-list`
 		const _cardListFavorites = `${_content}-card-list-favorites`
-		const _favoritePaginationLeft = `${_cardListFavorites}-pagination-left`
-		const _favoritePaginationRight = `${_cardListFavorites}-pagination-right`
+		const _favoriteCards = `${_cardListFavorites}-cards`
+		const _favoritePaginationLeft = `${_favoriteCards}-pagination-left`
+		const _favoritePaginationRight = `${_favoriteCards}-pagination-right`
 		const _outOfData = `${_cardList}-out-of-data`
 		const _outOfDataMessage = `${_outOfData}-message`
 		const _groot = `${_outOfData}-groot`
@@ -431,6 +432,7 @@ class App extends Component {
 				<div className={_favoritePaginationLeft}>
 					<KeyboardArrowLeftRounded onClick={this.switchFavoritePage.bind(this, 'previousFavoritePage')} />
 				</div>
+				<div className={_favoriteCards}>
 				{this.state.favorites.length > 0
 					? this.state.visibleFavorites.map((character, index) => (
 						<CharacterCard
@@ -440,6 +442,7 @@ class App extends Component {
 						/>
 					))
 					: null}
+				</div>
 				<div className={_favoritePaginationRight}>
 					<KeyboardArrowRightRounded onClick={this.switchFavoritePage.bind(this, 'nextFavoritePage')} />
 				</div>

@@ -188,31 +188,39 @@
 				padding-left 5rem
 				padding-right 5rem
 
-			&-pagination-left
+			&-cards
 				display flex
-				align-self center
-				cursor pointer
-				position absolute
-				z-index 2
-				left 1rem
+				justify-content center
+				width 100%
 
-				& svg
-					font-size 52px
-					color #61dafb
-					border-radius 50%
+				&-pagination-left
+					display flex
+					align-self center
+					cursor pointer
+					position absolute
+					z-index 2
+					left 1rem
 
-			&-pagination-right
-				display flex
-				align-self center
-				cursor pointer
-				position absolute
-				z-index 2
-				right 1rem
+					& svg
+						font-size 52px
+						color #61dafb
+						border-radius 50%
 
-				& svg
-					font-size 52px
-					color #61dafb
-					border-radius 50%
+				&-pagination-right
+					display flex
+					align-self center
+					cursor pointer
+					position absolute
+					z-index 2
+					right 1rem
+
+					& svg
+						font-size 52px
+						color #61dafb
+						border-radius 50%
+
+				+breakpoint(tablet)
+					justify-content flex-start
 
 		&-card-list
 			grid-area cards
