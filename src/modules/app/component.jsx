@@ -5,7 +5,6 @@ import React, { Component } from 'react'
 import { MySpaceContext } from 'context/myspace'
 import { debounce } from 'lodash'
 import MarvelApi from 'utils/marvel/api'
-import GrootNotFound from 'components/groot-not-found/component'
 import CharacterCard from 'components/character-card/component'
 import Pagination from 'components/pagination/component'
 import {
@@ -269,7 +268,7 @@ class App extends Component {
 						))
 					: this.state.gettingData
 						? this.preLoadCards(10)
-						: <GrootNotFound wait={350} />}
+						: outOfData()}
 			</div>
 		)
 
@@ -278,6 +277,12 @@ class App extends Component {
 				<Pagination
 					pagination={this.state.pagination}
 				/>
+			</div>
+		)
+
+		const outOfData = () => (
+			<div className={_pagination}>
+				Lorem Ipsum
 			</div>
 		)
 
