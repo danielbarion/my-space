@@ -82,12 +82,16 @@ class App extends Component {
 
 		this.getMarvelCharacters()
 
-		this.calcItemsPerPage()
-
 		window.addEventListener('resize', () => {
 			this.calcItemsPerPage()
 			this.setVisibleFavorites()
 		})
+	}
+
+	componentDidMount() {
+		setTimeout(() => {
+			this.calcItemsPerPage()
+		}, 350)
 	}
 
 	/**
@@ -110,6 +114,9 @@ class App extends Component {
 		MarvelApi.get(params)
 			.then((response) => {
 				if (!response) {
+					this.setState({
+						gettingData: false
+					})
 					return
 				}
 
@@ -128,18 +135,28 @@ class App extends Component {
 	calcItemsPerPage() {
 		const { favoritesPagination } = this.state
 
-		// The correctly calc is: ((window.innerWidth + arrows) / (card size))
-		// the disponible space / card size
-		// reason for the calc above: out of time to test correctly calc
+		// get content to calc cards based on content width
+		const content = document.querySelector('.app-content-card-list-favorites-cards')
+		// get just the first card, we just need one
+		const card = document.querySelector('.character-card')
 
-		if (window.innerWidth < 768) {
-			favoritesPagination.itemsPerPage = 1
-		}
-		if (window.innerWidth >= 768) {
-			favoritesPagination.itemsPerPage = 3
-		}
-		if (window.innerWidth >= 1024) {
-			favoritesPagination.itemsPerPage = 4
+		if (content && card) {
+			if (window.innerWidth < 768) {
+				favoritesPagination.itemsPerPage = 1
+			} else {
+				const initialAmountPossible = Math.floor((content.offsetWidth) / card.offsetWidth)
+				favoritesPagination.itemsPerPage = Math.floor((content.offsetWidth - (initialAmountPossible * 16)) / card.offsetWidth)
+			}
+		} else {
+			if (window.innerWidth < 768) {
+				favoritesPagination.itemsPerPage = 1
+			}
+			if (window.innerWidth >= 768) {
+				favoritesPagination.itemsPerPage = 3
+			}
+			if (window.innerWidth >= 1024) {
+				favoritesPagination.itemsPerPage = 4
+			}
 		}
 
 		this.setState({ favoritesPagination })
