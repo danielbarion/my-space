@@ -6,7 +6,7 @@ import {
 	Add
 } from '@material-ui/icons'
 
-class SideActions extends Component {
+class SideNav extends Component {
 	constructor(props) {
 		super(props)
 			this.state = {}
@@ -23,7 +23,7 @@ class SideActions extends Component {
 		/**
 		 * classNames
 		 */
-		const _root = 'side-actions'
+		const _root = 'side-nav'
 		const _add = `${_root}-add`
 
 		/**
@@ -46,4 +46,4 @@ class SideActions extends Component {
 	}
 }
 
-export default SideActions
+export default SideNav

@@ -7,7 +7,7 @@ import { debounce } from 'lodash'
 import MarvelApi from 'utils/marvel/api'
 import CharacterCard from 'components/character-card/component'
 import Pagination from 'components/pagination/component'
-import SideActions from 'components/side-actions/component'
+import SideNav from 'components/side-nav/component'
 import Groot from 'assets/img/groot/saddly-worried.jpg'
 import GrootSaddly from 'assets/img/groot/saddly.jpg'
 import {
@@ -392,7 +392,7 @@ class App extends Component {
 		 */
 		const _root = 'app'
 		const _person = `${_root}-person`
-		const _sideActions = `${_root}-actions`
+		const _sideNav = `${_root}-nav`
 		const _content = `${_root}-content`
 		const _contentHeader = `${_content}-header`
 		const _search = `${_contentHeader}-search`
@@ -414,15 +414,15 @@ class App extends Component {
 		 */
 		const main = (context) => (
 			<div className={_root}>
-				{sideActions()}
+				{sideNav()}
 				{person()}
 				{content()}
 			</div>
 		)
 
-		const sideActions = () => (
-			<div className={_sideActions}>
-				<SideActions />
+		const sideNav = () => (
+			<div className={_sideNav}>
+				<SideNav />
 			</div>
 		)
 
