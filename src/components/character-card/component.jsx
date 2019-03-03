@@ -68,8 +68,8 @@ class CharacterCard extends Component {
 		const favorite = () => (
 			<div className={_favorite} onClick={this.props.switchFavoriteItem || null}>
 				{this.props.data.favorite
-					? <FavoriteRounded />
-					:	<FavoriteBorderRounded />}
+					? <FavoriteRounded style={{ color: 'red', opacity: 0.9 }} />
+					: <FavoriteBorderRounded style={{ color: 'darkslategray' }} />}
 			</div>
 		)
 
