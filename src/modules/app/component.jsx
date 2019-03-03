@@ -78,8 +78,6 @@ class App extends Component {
 	 * lifecycle
 	 */
 	componentWillMount() {
-		// let myName = localStorage.getItem()
-
 		this.getMarvelCharacters()
 
 		window.addEventListener('resize', () => {
