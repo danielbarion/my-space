@@ -158,9 +158,11 @@
 			display flex
 			align-content baseline
 			flex-wrap wrap
-			justify-content space-between
+			justify-content center
 			padding-bottom 2.5rem
 			position relative
+			max-height 230px
+			overflow hidden
 
 			&[hasfavorite=false]
 				padding-bottom 0
@@ -172,7 +174,7 @@
 				content ''
 				display flex
 				justify-content center
-				width 80%
+				width 81%
 				background-color rgba(0, 0, 0, 0.2)
 				height 1px
 				position absolute
@@ -180,9 +182,37 @@
 				left 8.7%
 
 			+breakpoint(tablet)
+				justify-content space-between
 				padding-left 0.35rem
 				margin-top 1rem
-				justify-content flex-start
+				padding-left 5rem
+				padding-right 5rem
+
+			&-pagination-left
+				display flex
+				align-self center
+				cursor pointer
+				position absolute
+				z-index 2
+				left 1rem
+
+				& svg
+					font-size 52px
+					color #61dafb
+					border-radius 50%
+
+			&-pagination-right
+				display flex
+				align-self center
+				cursor pointer
+				position absolute
+				z-index 2
+				right 1rem
+
+				& svg
+					font-size 52px
+					color #61dafb
+					border-radius 50%
 
 		&-card-list
 			grid-area cards

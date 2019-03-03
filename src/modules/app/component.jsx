@@ -11,7 +11,9 @@ import Groot from 'assets/img/groot/saddly-worried.jpg'
 import GrootSaddly from 'assets/img/groot/saddly.jpg'
 import {
 	Search,
-	Person
+	Person,
+	KeyboardArrowLeftRounded,
+	KeyboardArrowRightRounded
 } from '@material-ui/icons'
 
 class App extends Component {
@@ -37,7 +39,20 @@ class App extends Component {
 					 */
 					updatePage: this.updatePage.bind(this)
 				},
-				favorites: []
+				favorites: [],
+				visibleFavorites: [],
+				favoritesPagination: {
+					/**
+					 * vars
+					 */
+					page: 1,
+					itemsPerPage: 1,
+
+					/**
+					 * funcs
+					 */
+					updateFavoritesPage: this.updateFavoritesPage.bind(this)
+				},
 			}
 
 		/**
@@ -54,6 +69,9 @@ class App extends Component {
 		this.preLoadCards = this.preLoadCards.bind(this)
 		this.searchResults = this.searchResults.bind(this)
 		this.switchFavoriteItem = this.switchFavoriteItem.bind(this)
+		this.setVisibleFavorites = this.setVisibleFavorites.bind(this)
+		this.switchFavoritePage = this.switchFavoritePage.bind(this)
+		this.calcItemsPerPage = this.calcItemsPerPage.bind(this)
 	}
 
 	/**
@@ -61,7 +79,15 @@ class App extends Component {
 	 */
 	componentWillMount() {
 		// let myName = localStorage.getItem()
+
 		this.getMarvelCharacters()
+
+		this.calcItemsPerPage()
+
+		window.addEventListener('resize', () => {
+			this.calcItemsPerPage()
+			this.setVisibleFavorites()
+		})
 	}
 
 	/**
@@ -105,8 +131,27 @@ class App extends Component {
 		}
 	}
 
+	calcItemsPerPage() {
+		const { favoritesPagination } = this.state
+
+		// The correctly calc is: ((window.innerWidth + arrows) / (card size))
+		// the disponible space / card size
+		// reason for the calc above: out of time to test correctly calc
+
+		if (window.innerWidth >= 768) {
+			favoritesPagination.itemsPerPage = 3
+		} else if (window.innerWidth >= 1024) {
+			favoritesPagination.itemsPerPage = 4
+		} else {
+			favoritesPagination.itemsPerPage = 1
+		}
+
+		this.setState({ favoritesPagination })
+	}
+
 	switchFavoriteItem(item) {
 		let { favorites } = this.state
+		const { favoritesPagination } = this.state
 
 		if (!item) {
 			return
@@ -120,9 +165,12 @@ class App extends Component {
 
 		item.favorite = !item.favorite
 
+		favoritesPagination.total = favorites.length
+
 		this.setState({
-			favorites
-		})
+			favorites,
+			favoritesPagination
+		}, () => this.setVisibleFavorites())
 	}
 
 	updatePage(page) {
@@ -133,6 +181,85 @@ class App extends Component {
 			pagination,
 			characters: []
 		}, () => this.getMarvelCharactersDebounced())
+	}
+
+	updateFavoritesPage(page) {
+		const { favoritesPagination } = this.state
+		favoritesPagination.page = page
+
+		this.setState({
+			favoritesPagination
+		})
+	}
+
+	setVisibleFavorites() {
+		const { favoritesPagination } = this.state
+		let {
+			favorites,
+			visibleFavorites
+		} = this.state
+
+		const maxIndex = favoritesPagination.itemsPerPage * favoritesPagination.page
+		const minIndex = (favoritesPagination.itemsPerPage * (favoritesPagination.page - 1)) + 1
+
+		visibleFavorites = favorites.reduce((acc, item, index) => {
+
+			if (acc.length < favoritesPagination.itemsPerPage) {
+				if (favoritesPagination.page > 1) {
+					if ((index + 1) <= maxIndex && (index + 1) >= minIndex) {
+						acc.push(item)
+					}
+				} else {
+					if ((index + 1) <= maxIndex) {
+						acc.push(item)
+					}
+				}
+			}
+
+			return acc
+		}, [])
+
+		this.setState({
+			visibleFavorites
+		})
+	}
+
+	switchFavoritePage(id) {
+		const {
+			favoritesPagination,
+			favorites
+		} = this.state
+
+		let page = favoritesPagination.page
+		const lastPage = Math.ceil(favorites.length / favoritesPagination.itemsPerPage)
+
+		switch (id) {
+			case 'previousFavoritePage':
+				if (page === 1) {
+					return
+				}
+
+				page -= 1
+
+				break
+			case 'nextFavoritePage':
+				if (page === lastPage) {
+					return
+				}
+
+				page += 1
+
+				break
+
+				default:
+					break
+			}
+
+			favoritesPagination.page = page
+
+		this.setState({
+			favoritesPagination
+		}, () => this.setVisibleFavorites())
 	}
 
 	switchSearchBarActive(event) {
@@ -243,6 +370,8 @@ class App extends Component {
 		const _searchInput = `${_search}-input`
 		const _cardList = `${_content}-card-list`
 		const _cardListFavorites = `${_content}-card-list-favorites`
+		const _favoritePaginationLeft = `${_cardListFavorites}-pagination-left`
+		const _favoritePaginationRight = `${_cardListFavorites}-pagination-right`
 		const _outOfData = `${_cardList}-out-of-data`
 		const _outOfDataMessage = `${_outOfData}-message`
 		const _groot = `${_outOfData}-groot`
@@ -303,8 +432,11 @@ class App extends Component {
 
 		const cardListFavorites = () => (
 			<div className={_cardListFavorites} hasfavorite={this.hasFavoriteAttr()}>
+				<div className={_favoritePaginationLeft}>
+					<KeyboardArrowLeftRounded onClick={this.switchFavoritePage.bind(this, 'previousFavoritePage')} />
+				</div>
 				{this.state.favorites.length > 0
-					? this.state.favorites.map((character, index) => (
+					? this.state.visibleFavorites.map((character, index) => (
 						<CharacterCard
 							data={character}
 							key={index}
@@ -312,6 +444,9 @@ class App extends Component {
 						/>
 					))
 					: null}
+				<div className={_favoritePaginationRight}>
+					<KeyboardArrowRightRounded onClick={this.switchFavoritePage.bind(this, 'nextFavoritePage')} />
+				</div>
 			</div>
 		)
 
