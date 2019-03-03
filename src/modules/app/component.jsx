@@ -37,9 +37,7 @@ class App extends Component {
 					 */
 					updatePage: this.updatePage.bind(this)
 				},
-				favorites: [
-
-				]
+				favorites: []
 			}
 
 		/**
@@ -219,6 +217,16 @@ class App extends Component {
 		return active
 	}
 
+	hasFavoriteAttr() {
+		let hasFavorite = 'false'
+
+		if (this.state.favorites.length > 0) {
+			hasFavorite = 'true'
+		}
+
+		return hasFavorite
+	}
+
 	/**
 	* React Render
 	*/
@@ -234,6 +242,7 @@ class App extends Component {
 		const _searchIcon = `${_search}-icon`
 		const _searchInput = `${_search}-input`
 		const _cardList = `${_content}-card-list`
+		const _cardListFavorites = `${_content}-card-list-favorites`
 		const _outOfData = `${_cardList}-out-of-data`
 		const _outOfDataMessage = `${_outOfData}-message`
 		const _groot = `${_outOfData}-groot`
@@ -261,6 +270,7 @@ class App extends Component {
 
 		const content = () => (
 			<div className={_content}>
+				{cardListFavorites()}
 				{contentHeader()}
 				{cardList()}
 			</div>
@@ -291,8 +301,22 @@ class App extends Component {
 			</div>
 		)
 
+		const cardListFavorites = () => (
+			<div className={_cardListFavorites} hasfavorite={this.hasFavoriteAttr()}>
+				{this.state.favorites.length > 0
+					? this.state.favorites.map((character, index) => (
+						<CharacterCard
+							data={character}
+							key={index}
+							switchFavoriteItem={this.switchFavoriteItem.bind(this, character)}
+						/>
+					))
+					: null}
+			</div>
+		)
+
 		const cardList = () => (
-			<div className={_cardList}>
+			<div className={_cardList} hasfavorite={this.hasFavoriteAttr()}>
 				{this.state.characters.length > 0
 					?	this.state.characters.map((character, index) => (
 							<CharacterCard

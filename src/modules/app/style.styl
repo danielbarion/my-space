@@ -31,9 +31,9 @@
 	&-content
 		display grid
 		grid-template-areas 'header'\
-												'cards'\
-												'pagination'
-		grid-template-rows 95px auto 30px
+												'favorites'\
+												'cards'
+		grid-template-rows 95px auto auto
 		position absolute
 		width calc(100% - 2rem)
 		padding-top 1.5rem
@@ -42,10 +42,7 @@
 		top 10vh
 
 		+breakpoint(tablet)
-			grid-template-areas 'header'\
-													'cards'\
-													'pagination'
-			grid-template-rows 35px auto 30px
+			grid-template-rows 35px auto auto
 
 		+breakpoint(laptopM)
 			margin-right 16vw
@@ -156,16 +153,54 @@
 				+breakpoint(tablet)
 					justify-content flex-end
 
-		&-card-list
+		&-card-list-favorites
+			grid-area favorites
 			display flex
 			align-content baseline
 			flex-wrap wrap
 			justify-content space-between
+			padding-bottom 2.5rem
+			position relative
+
+			&[hasfavorite=false]
+				padding-bottom 0
+
+				&:after
+					height 0
+
+			&:after
+				content ''
+				display flex
+				justify-content center
+				width 80%
+				background-color rgba(0, 0, 0, 0.2)
+				height 1px
+				position absolute
+				bottom 0
+				left 8.7%
 
 			+breakpoint(tablet)
 				padding-left 0.35rem
 				margin-top 1rem
 				justify-content flex-start
+
+		&-card-list
+			grid-area cards
+			display flex
+			align-content baseline
+			flex-wrap wrap
+			justify-content space-between
+
+			&[hasfavorite=true]
+				margin-top 1.5rem
+
+			+breakpoint(tablet)
+				padding-left 0.35rem
+				margin-top 1rem
+				justify-content flex-start
+
+				&[hasfavorite=true]
+					margin-top 1rem
 
 			&-out-of-data
 				display grid
