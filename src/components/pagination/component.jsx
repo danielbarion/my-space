@@ -9,15 +9,10 @@ import {
 	KeyboardCapslockRounded
 } from '@material-ui/icons'
 
-class Card extends Component {
+class Pagination extends Component {
 	constructor(props) {
 		super(props)
 			this.state = {}
-
-		/**
-		 * binded funcs
-		 */
-		// this.myFunction = this.myFunction.bind(this)
 	}
 
 	/**
@@ -129,4 +124,4 @@ class Card extends Component {
 	}
 }
 
-export default Card
+export default Pagination
