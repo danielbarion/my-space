@@ -40,7 +40,7 @@ class App extends Component {
 					 */
 					updatePage: this.updatePage.bind(this)
 				},
-				favorites: this.getFavorites() || [],
+				favorites: [],
 				visibleFavorites: [],
 				favoritesPagination: {
 					/**
@@ -89,8 +89,11 @@ class App extends Component {
 			user = JSON.parse(user)
 			this.setState({
 				user
+			}, () => {
+				this.setState({
+					favorites: this.getFavorites()
+				}, () => this.getMarvelCharacters())
 			})
-			this.getMarvelCharacters()
 
 			window.addEventListener('resize', () => {
 				this.calcItemsPerPage()
@@ -156,16 +159,22 @@ class App extends Component {
 	}
 
 	getFavorites() {
+		const { user } = this.state
 		let favorites = localStorage.getItem('favorites')
 
 		if (favorites) {
 			favorites = JSON.parse(favorites)
 
-			return favorites
+			const filterFavorites = favorites.filter(favorite => favorite.id === user.id)
+
+			if (filterFavorites) {
+				favorites = filterFavorites[0].favorites
+
+				return favorites
+			}
 		}
 
 		return []
-
 	}
 
 	calcItemsPerPage() {
@@ -199,8 +208,11 @@ class App extends Component {
 	}
 
 	switchFavoriteItem(item) {
-		let { favorites } = this.state
-		const { favoritesPagination } = this.state
+		let { favorites, characters } = this.state
+		const {
+			favoritesPagination,
+			user
+		} = this.state
 
 		if (!item) {
 			return
@@ -214,13 +226,37 @@ class App extends Component {
 
 		item.favorite = !item.favorite
 
+		characters.map(character => {
+			if (item.id && character.id === item.id) {
+				character.favorite = item.favorite
+			}
+			return character
+		})
+
 		favoritesPagination.total = favorites.length
 
-		localStorage.setItem('favorites', JSON.stringify(favorites))
+		let localStorageFavorites = localStorage.getItem('favorites')
+
+		let newFavorites = []
+		if (localStorageFavorites) {
+			const parsedLocalStorageFavorites = JSON.parse(localStorageFavorites)
+			newFavorites = parsedLocalStorageFavorites.map(item => {
+				if (item.id === user.id) {
+					item.favorites = favorites
+				}
+
+				return item
+			})
+		} else {
+			newFavorites = [{ id: user.id, favorites }]
+		}
+
+		localStorage.setItem('favorites', JSON.stringify(newFavorites))
 
 		this.setState({
 			favorites,
-			favoritesPagination
+			favoritesPagination,
+			characters
 		}, () => this.setVisibleFavorites())
 	}
 
