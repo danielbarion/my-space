@@ -158,6 +158,8 @@ class Users extends Component {
 					}, () => {
 						setTimeout(() => {
 							this.setState({
+								showError: false,
+								buttonEnabled: true,
 								isInAvatarSelect: true
 							})
 						}, 10000)
