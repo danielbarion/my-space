@@ -1,0 +1,118 @@
+.users
+	display grid
+	grid-template-areas 'background'\
+											'users'
+	grid-template-rows 0px auto
+	height 100vh
+	width 100vw
+	background-color #F0F8FF
+
+	&-background
+		opacity 0.25
+		position absolute
+		height 100vh
+		width 100vw
+		// background url('../../assets/img/hexagon.png')
+		background url('../../assets/svg/hexagon.svg')
+		background-size 217px
+		z-index 1
+
+	&-users
+		display flex
+		justify-content center
+		align-items center
+		height 100vh
+		width 100%
+
+		&-content
+			display grid
+			grid-template-areas 'message'\
+													'input'\
+													'footer'
+			grid-template-rows 65px 60px auto
+			position relative
+			z-index 2
+			font-family 'Ubuntu', sans-serif
+			padding 1.5rem
+			max-height 100%
+			min-width 62vw
+
+			+breakpoint(tablet)
+				min-width 200px
+
+			&-avatar-pick
+				display flex
+				justify-content center
+				flex-direction column
+				align-items center
+				position relative
+				z-index 3
+				height 100%
+
+			&-message
+				grid-area message
+				color rgba(0, 0, 0, 0.5)
+				font-weight 500
+				line-height 1.6
+
+			&-input
+				grid-area input
+				display flex
+				justify-content center
+				justify-self center
+				align-self flex-end
+				width 100%
+
+			&-footer
+				display grid
+				grid-template-areas 'error'\
+														'button'
+				grid-template-rows auto 50px
+
+				&-error
+					grid-area error
+					color #c20f0f
+					font-weight 500
+					line-height 1.6
+					padding-top 1rem
+					padding-bottom 0.5rem
+
+				&-button
+					font-family 'Ubuntu', sans-serif
+					color aliceblue
+					min-width 120px
+					width calc(100% - 3rem)
+					max-width 200px
+					height 30px
+					display flex
+					justify-content center
+					justify-self center
+					align-items center
+					grid-area button
+					margin-top 1rem
+					bottom 1rem
+					padding-top 0.5rem
+					padding-bottom 0.5rem
+					padding-right 1.5rem
+					padding-left 1.5rem
+					background-color #61DAFB
+					border-radius 10px
+					position relative
+					cursor pointer
+					z-index 2
+					user-select none
+					box-shadow 0 3px 5px 0 rgba(0,0,0,0.15),
+										0 2px 5px 1px rgba(191,212,214,0.54),
+										0 2px 5px 1px rgba(97,218,251, 0.5)
+
+					&[blocked=false]
+						&:active
+							box-shadow inset 0 3px 5px 0 rgba(0,0,0,0.15),
+												inset 0 2px 5px 1px rgba(191,212,214,0.54),
+												inset 0 2px 5px 1px rgba(97,218,251, 0.5)
+
+					&[blocked=true]
+						color rgba(0, 0, 0, 0.3)
+						background-color aliceblue
+
+

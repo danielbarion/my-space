@@ -55,6 +55,7 @@ class App extends Component {
 					 */
 					updateFavoritesPage: this.updateFavoritesPage.bind(this)
 				},
+				user: {}
 			}
 
 		/**
@@ -81,6 +82,17 @@ class App extends Component {
 	 * lifecycle
 	 */
 	componentWillMount() {
+		let user = localStorage.getItem('activeUser')
+
+		if (!user) {
+			this.props.history.push(`/`)
+		} else {
+			user = JSON.parse(user)
+			this.setState({
+				user
+			})
+		}
+
 		this.getMarvelCharacters()
 
 		window.addEventListener('resize', () => {
@@ -466,9 +478,10 @@ class App extends Component {
 
 		const person = () => (
 			<div className={_person}>
-				<Person />
+				{/* <Person /> */}
+				<img src={this.state.user.avatar} alt='Avatar' />
 				<span>
-					Daniel Barion
+					{this.state.user.name}
 				</span>
 			</div>
 		)

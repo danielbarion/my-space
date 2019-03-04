@@ -5,6 +5,7 @@ import './index.styl';
 import 'assets/css/base.styl'
 import Home from './modules/home/component'
 import App from './modules/app/component'
+import Users from './modules/users/component'
 import { BrowserRouter, Switch, Route } from 'react-router-dom'
 import MySpaceContext from 'context/myspace'
 
@@ -14,6 +15,7 @@ ReactDOM.render(
       <Switch>
         <Route path='/' exact={true} component={Home} />
         <Route path='/app' component={App} />
+        <Route path='/users' component={Users} />
         <Route path='*' component={Home} />
       </Switch>
     </ BrowserRouter>

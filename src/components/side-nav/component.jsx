@@ -15,6 +15,7 @@ class SideNav extends Component {
 				inputNameValue: '',
 				inputImageValue: ''
 			}
+
 		/**
 		 * binded funcs
 		 */

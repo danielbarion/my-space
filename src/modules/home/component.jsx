@@ -20,7 +20,7 @@ class Home extends Component {
 	 * funcs
 	 */
 	goToApp() {
-		this.props.history.push(`/app`)
+		this.props.history.push(`/users`)
 	}
 
 	/**
@@ -32,7 +32,6 @@ class Home extends Component {
 		 */
 		const _root = 'home'
 		const _background = `${_root}-background`
-		const _overlay = `${_root}-overlay`
 		const _logo = `${_root}-logo`
 		const _button = `${_root}-button`
 
@@ -48,9 +47,7 @@ class Home extends Component {
 		)
 
 		const background = () => (
-			<div className={_background}>
-				<div className={_overlay}></div>
-			</div>
+			<div className={_background}></div>
 		)
 
 		const logo = () => (

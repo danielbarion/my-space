@@ -5,9 +5,7 @@ export const MySpaceContext = React.createContext()
 class MySpaceProvider extends React.Component {
   constructor(props) {
     super(props)
-    this.state = {
-      firstTimeInApp: true
-    }
+    this.state = {}
   }
 
 	/**
