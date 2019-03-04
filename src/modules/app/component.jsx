@@ -12,7 +12,6 @@ import Groot from 'assets/img/groot/saddly-worried.jpg'
 import GrootSaddly from 'assets/img/groot/saddly.jpg'
 import {
 	Search,
-	Person,
 	KeyboardArrowLeftRounded,
 	KeyboardArrowRightRounded
 } from '@material-ui/icons'
@@ -91,14 +90,13 @@ class App extends Component {
 			this.setState({
 				user
 			})
+			this.getMarvelCharacters()
+
+			window.addEventListener('resize', () => {
+				this.calcItemsPerPage()
+				this.setVisibleFavorites()
+			})
 		}
-
-		this.getMarvelCharacters()
-
-		window.addEventListener('resize', () => {
-			this.calcItemsPerPage()
-			this.setVisibleFavorites()
-		})
 	}
 
 	componentDidMount() {
@@ -478,7 +476,6 @@ class App extends Component {
 
 		const person = () => (
 			<div className={_person}>
-				{/* <Person /> */}
 				<img src={this.state.user.avatar} alt='Avatar' />
 				<span>
 					{this.state.user.name}
