@@ -14,6 +14,8 @@
 				inset 0 0.1px 0.5px 0.5px rgba(97,218,251, 0.25)
 		cursor pointer
 		transition width 200ms
+		outline none
+		-webkit-tap-highlight-color transparent
 
 		& span
 			transition opacity 300ms
@@ -27,13 +29,15 @@
 			transition transform 300ms
 
 		&:hover
-			width 160px
-			border-radius 15px
-			padding-right 0.5rem
+			+breakpoint(mobileL)
+				width 160px
+				border-radius 15px
+				padding-right 0.5rem
 
 			& span
-				display flex
-				opacity 1
+				+breakpoint(mobileL)
+					display flex
+					opacity 1
 
 			& svg
 				transform rotate(90deg)
