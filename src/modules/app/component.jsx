@@ -226,7 +226,7 @@ class App extends Component {
 		this.setState({
 			favorites,
 			customCards
-		})
+		}, () => this.setVisibleFavorites())
 	}
 
 	updatePage(page) {
