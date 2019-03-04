@@ -2,6 +2,7 @@
  * dependencies
  */
 import React, { Component } from 'react'
+import { debounce } from 'lodash'
 
 class Input extends Component {
 	constructor(props) {
@@ -10,6 +11,11 @@ class Input extends Component {
 				value: '',
 				isValid: null
 			}
+
+		/**
+		 * debounced funcs
+		 */
+		this.onChangeWithDebounce = debounce((event) => this.props.onChange(event, this.props.name), 600)
 
 		/**
 		 * binded funcs
@@ -23,7 +29,10 @@ class Input extends Component {
 	handleChangeEvent(event) {
 		const { value } = event.target
 		const { isValid } = this.state
-		const { onChange } = this.props
+		const {
+			onChange,
+			onChangeWithDebounce
+		} = this.props
 
 		event.persist()
 
@@ -35,18 +44,14 @@ class Input extends Component {
 		}
 
 		if (onChange !== undefined) {
-			onChange(event)
+			if (onChangeWithDebounce) {
+				this.onChangeWithDebounce(event, this.props.name || null)
+			} else {
+				onChange(event, this.props.name || null)
+			}
 		}
 
 		this.setState({ value })
-	}
-
-	inputValidation(event) {
-		let { isValid } = this.state
-
-		this.setState({
-			isValid
-		})
 	}
 
 	/**
@@ -72,6 +77,7 @@ class Input extends Component {
 			<input
 				className='input'
 				type='text'
+				name={this.props.name}
 				maxLength={this.props.maxLength}
 				value={this.state.value}
 				onChange={this.handleChangeEvent}
@@ -81,7 +87,7 @@ class Input extends Component {
 		)
 
 		const label = () => (
-			<label className="label" htmlFor="name">{ this.props.label || '' }</label>
+			<label className="label" htmlFor={this.props.name}>{ this.props.label || '' }</label>
 		)
 
 		return main()

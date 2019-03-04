@@ -2,7 +2,6 @@
  * dependencies
  */
 import React, { Component } from 'react'
-import { MySpaceContext } from 'context/myspace'
 import {
 	FavoriteRounded,
 	FavoriteBorderRounded
@@ -37,7 +36,7 @@ class CharacterCard extends Component {
 		/**
 		 * render functions
 		 */
-		const main = (context) => (
+		const main = () => (
 			<div className={`${_root} ${this.props.preLoad ? `${_preload} ${_animationLoading}` : _card}`}>
 				{!this.props.preLoad
 						? content()
@@ -53,7 +52,9 @@ class CharacterCard extends Component {
 
 		const thumbnail = () => (
 			<div className={_thumbnail}>
-				<img src={`${this.props.data.thumbnail.path}.${this.props.data.thumbnail.extension}`} alt='Thumbnail' />
+				{this.props.data.id
+					? <img src={`${this.props.data.thumbnail.path}.${this.props.data.thumbnail.extension}`} alt='Thumbnail' />
+					: <img src={this.props.data.thumbnail} alt='Thumbnail' />}
 				{overlay()}
 				{favorite()}
 			</div>
@@ -73,11 +74,7 @@ class CharacterCard extends Component {
 			</div>
 		)
 
-		return (
-			<MySpaceContext.Consumer>
-				{(context) => main(context)}
-			</MySpaceContext.Consumer>
-		)
+		return main()
 	}
 }
 

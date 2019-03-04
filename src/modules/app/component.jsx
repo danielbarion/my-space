@@ -28,6 +28,7 @@ class App extends Component {
 					searchResults: []
 				},
 				characters: [],
+				customCards: [],
 				pagination: {
 					/**
 					 * vars
@@ -73,6 +74,7 @@ class App extends Component {
 		this.setVisibleFavorites = this.setVisibleFavorites.bind(this)
 		this.switchFavoritePage = this.switchFavoritePage.bind(this)
 		this.calcItemsPerPage = this.calcItemsPerPage.bind(this)
+		this.addCustomCard = this.addCustomCard.bind(this)
 	}
 
 	/**
@@ -210,6 +212,21 @@ class App extends Component {
 			favorites,
 			favoritesPagination
 		}, () => this.setVisibleFavorites())
+	}
+
+	addCustomCard(card) {
+		const {
+			favorites,
+			customCards
+		} = this.state
+
+		favorites.push(card)
+		customCards.push(card)
+
+		this.setState({
+			favorites,
+			customCards
+		})
 	}
 
 	updatePage(page) {
@@ -441,7 +458,9 @@ class App extends Component {
 
 		const sideNav = () => (
 			<div className={_sideNav}>
-				<SideNav />
+				<SideNav
+					addCustomCard={this.addCustomCard}
+				/>
 			</div>
 		)
 

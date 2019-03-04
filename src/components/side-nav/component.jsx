@@ -11,17 +11,59 @@ class SideNav extends Component {
 	constructor(props) {
 		super(props)
 			this.state = {
-				isModalOpened: true
+				isModalOpened: false,
+				inputNameValue: '',
+				inputImageValue: ''
 			}
 		/**
 		 * binded funcs
 		 */
 		this.switchModal = this.switchModal.bind(this)
+		this.handleOnClick = this.handleOnClick.bind(this)
+		this.handleChangeEvent = this.handleChangeEvent.bind(this)
 	}
 
 	/**
 	 * funcs
 	 */
+	 handleOnClick(event) {
+		 const {
+			inputNameValue,
+			inputImageValue
+		 } = this.state
+		 event.persist()
+
+		 	const card = {
+					name: inputNameValue,
+					thumbnail: inputImageValue,
+					favorite: true
+			 }
+
+		 if(this.props.addCustomCard) {
+			 this.props.addCustomCard(card)
+		 }
+
+		 setTimeout(() => this.switchModal(), 300)
+	 }
+
+	handleChangeEvent(event, inputName) {
+		const { value } = event.target
+
+		if (inputName) {
+			switch (inputName) {
+				case 'cardName':
+					this.setState({ inputNameValue: value })
+					break
+
+				case 'cardImageUrl':
+					this.setState({ inputImageValue: value })
+					break
+
+				default:
+					break
+			}
+		}
+	}
 
 	 switchModal() {
 		 const { isModalOpened } = this.state
@@ -44,6 +86,7 @@ class SideNav extends Component {
 		const _modal = `${_root}-modal`
 		const _modalHeader = `${_modal}-header`
 		const _modalContent = `${_modal}-content`
+		const _information = `${_modalContent}-information`
 		const _input = `${_modalContent}-input`
 		const _button = `${_modal}-button`
 
@@ -51,7 +94,7 @@ class SideNav extends Component {
 		/**
 		 * render functions
 		 */
-		const main = (context) => (
+		const main = () => (
 			<div className={_root}>
 				{add()}
 				{modal()}
@@ -101,6 +144,7 @@ class SideNav extends Component {
 			<div className={_modalContent}>
 				{inputName()}
 				{inputUrl()}
+				{information()}
 				{confirmButton()}
 			</div>
 		)
@@ -109,6 +153,9 @@ class SideNav extends Component {
 			<div className={_input}>
 				<Input
 					label='Card Name'
+					name='cardName'
+					onChange={this.handleChangeEvent}
+					onChangeWithDebounce={true}
 				/>
 			</div>
 		)
@@ -117,12 +164,21 @@ class SideNav extends Component {
 			<div className={_input}>
 				<Input
 					label='Card Image link'
+					name='cardImageUrl'
+					onChange={this.handleChangeEvent}
+					onChangeWithDebounce={true}
 				/>
 			</div>
 		)
 
+		const information = () => (
+			<div className={_information}>
+				The custom card will automatically be added to favorites in the last page.
+			</div>
+		)
+
 		const confirmButton = () => (
-			<div className={_button}>
+			<div className={_button} onClick={this.handleOnClick}>
 				Confirm
 			</div>
 		)

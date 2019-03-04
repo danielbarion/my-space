@@ -1,3 +1,9 @@
+## Devs
+I suggest the image url below when add a custom card because his quality are great!
+> `https://terrigen-cdn-dev.marvel.com/content/prod/1x/marvelsspider-man_lob_crd_02.jpg`
+
+---------
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
