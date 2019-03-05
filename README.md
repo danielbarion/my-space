@@ -2,6 +2,16 @@
 I suggest the image url below when add a custom card because his quality are great!
 > `https://terrigen-cdn-dev.marvel.com/content/prod/1x/marvelsspider-man_lob_crd_02.jpg`
 
+## Possible Next Features
+1. List custom cards
+1. Edit custom cards
+1. Remove custom cards
+1. Undo action when remove a favorite
+1. Change user avatar
+1. Update user name
+1. Add module `To Do` and `Notes`
+1. ...
+
 ---------
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
