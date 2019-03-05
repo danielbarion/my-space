@@ -258,7 +258,9 @@ class Users extends Component {
 
 		const users = () => (
 			<div className={_users}>
-				{sideNav()}
+				{!this.state.noUsersDetected
+					? sideNav()
+						: null}
 				{this.state.noUsersDetected || this.state.inUserAdd
 					? this.state.isInAvatarSelect
 						? avatarPick()
