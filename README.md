@@ -6,6 +6,7 @@ I suggest the image url below when add a custom card because his quality are gre
 1. List custom cards
 1. Edit custom cards
 1. Remove custom cards
+1. Save custom cards into localStorage
 1. Undo action when remove a favorite
 1. Change user avatar
 1. Update user name
