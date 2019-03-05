@@ -75,6 +75,7 @@ class App extends Component {
 		this.switchFavoritePage = this.switchFavoritePage.bind(this)
 		this.calcItemsPerPage = this.calcItemsPerPage.bind(this)
 		this.addCustomCard = this.addCustomCard.bind(this)
+		this.goToSwitchPerson = this.goToSwitchPerson.bind(this)
 	}
 
 	/**
@@ -442,6 +443,10 @@ class App extends Component {
 		}, () => this.getMarvelCharactersDebounced())
 	}
 
+	goToSwitchPerson() {
+		this.props.history.push('/users')
+	}
+
 	/**
 	 * attrs
 	 */
@@ -519,7 +524,7 @@ class App extends Component {
 		)
 
 		const person = () => (
-			<div className={_person}>
+			<div className={_person} onClick={this.goToSwitchPerson}>
 				<img src={this.state.user.avatar} alt='Avatar' />
 				<span>
 					{this.state.user.name}
