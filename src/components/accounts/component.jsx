@@ -68,6 +68,8 @@ class Accounts extends Component {
 		this.setState({ users	})
 
 		if (!initializing) {
+			localStorage.setItem('activeUser', JSON.stringify(avatar))
+
 			this.props.goToApp()
 		} else {
 			this.setState({

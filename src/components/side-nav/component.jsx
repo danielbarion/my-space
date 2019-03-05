@@ -91,6 +91,9 @@ class SideNav extends Component {
 		const _input = `${_modalContent}-input`
 		const _button = `${_modal}-button`
 
+		/**
+		 * NOTE: This component need to be refactored to be more generic !important
+		 */
 
 		/**
 		 * render functions
@@ -105,7 +108,7 @@ class SideNav extends Component {
 		const add = () => (
 			<div className={_add} onClick={this.switchModal}>
 				<Add />
-				<span>Add Custom Card</span>
+				<span>{this.props.label}</span>
 			</div>
 		)
 

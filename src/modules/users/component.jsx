@@ -6,6 +6,10 @@ import { MySpaceContext } from 'context/myspace'
 import Input from 'components/input/component'
 import AvatarPick from 'components/avatar-pick/component'
 import Accounts from 'components/accounts/component'
+import {
+	Add,
+	ArrowBack
+} from '@material-ui/icons'
 
 class Users extends Component {
 	constructor(props) {
@@ -25,7 +29,8 @@ class Users extends Component {
 				waiting: false,
 				buttonEnabled: true,
 				showError: false,
-				isInAvatarSelect: false
+				isInAvatarSelect: false,
+				inUserAdd: false
 			}
 
 		/**
@@ -37,6 +42,7 @@ class Users extends Component {
 		this.blockedAttr = this.blockedAttr.bind(this)
 		this.setAvatar = this.setAvatar.bind(this)
 		this.saveNewUser = this.saveNewUser.bind(this)
+		this.switchAddUser = this.switchAddUser.bind(this)
 	}
 
 	/**
@@ -79,6 +85,14 @@ class Users extends Component {
 		}
 	}
 
+	switchAddUser() {
+		let { inUserAdd } = this.state
+
+		inUserAdd = !inUserAdd
+
+		this.setState({ inUserAdd	})
+	}
+
 	saveNewUser() {
 		const {
 			value,
@@ -103,10 +117,7 @@ class Users extends Component {
 		}
 
 		localStorage.setItem('users', JSON.stringify(users))
-
-		if (users.length < 2) {
-			localStorage.setItem('activeUser', JSON.stringify(newUser))
-		}
+		localStorage.setItem('activeUser', JSON.stringify(newUser))
 	}
 
 	confirmButton() {
@@ -218,6 +229,10 @@ class Users extends Component {
 		const _card = 'card'
 		const _background = `${_root}-background`
 		const _users = `${_root}-users`
+		const _header = `${_users}-header`
+		const _sideNav = `${_header}-nav`
+		const _add = `${_sideNav}-add`
+		const _back = `${_sideNav}-back`
 		const _list = `${_users}-list`
 		const _content = `${_users}-content`
 		const _avatarPick = `${_content}-avatar-pick`
@@ -243,7 +258,8 @@ class Users extends Component {
 
 		const users = () => (
 			<div className={_users}>
-				{this.state.noUsersDetected
+				{sideNav()}
+				{this.state.noUsersDetected || this.state.inUserAdd
 					? this.state.isInAvatarSelect
 						? avatarPick()
 							:	content()
@@ -262,7 +278,9 @@ class Users extends Component {
 
 		const content = () => (
 			<div className={`${_content} ${_card}`}>
-				{message()}
+				{this.state.inUserAdd
+					? addMessage()
+						: message()}
 				{input()}
 				{footer()}
 			</div>
@@ -282,6 +300,14 @@ class Users extends Component {
 				Hey! <br/>
 				This is your first time here ? <br/>
 				Whats your...
+			</div>
+		)
+
+		const addMessage = () => (
+			<div className={_message}>
+				Hey! <br/>
+				You want add a new user ? <br/>
+				Great! What is his..
 			</div>
 		)
 
@@ -313,6 +339,28 @@ class Users extends Component {
 					name='name'
 					onChange={this.handleChangeEvent}
 				/>
+			</div>
+		)
+
+		const sideNav = () => (
+			<div className={_sideNav}>
+				{this.state.inUserAdd
+					? back()
+					: add()}
+			</div>
+		)
+
+		const add = () => (
+			<div className={_add} onClick={this.switchAddUser}>
+				<Add />
+				<span>New User</span>
+			</div>
+		)
+
+		const back = () => (
+			<div className={_back} onClick={this.switchAddUser}>
+				<ArrowBack />
+				<span>Select User</span>
 			</div>
 		)
 

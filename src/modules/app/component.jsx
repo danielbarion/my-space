@@ -167,7 +167,7 @@ class App extends Component {
 
 			const filterFavorites = favorites.filter(favorite => favorite.id === user.id)
 
-			if (filterFavorites) {
+			if (filterFavorites.length > 0) {
 				favorites = filterFavorites[0].favorites
 
 				return favorites
@@ -240,13 +240,20 @@ class App extends Component {
 		let newFavorites = []
 		if (localStorageFavorites) {
 			const parsedLocalStorageFavorites = JSON.parse(localStorageFavorites)
-			newFavorites = parsedLocalStorageFavorites.map(item => {
-				if (item.id === user.id) {
-					item.favorites = favorites
-				}
+			const getMyFavorites = parsedLocalStorageFavorites.filter(favorite => favorite.id === user.id)
 
-				return item
-			})
+			if (getMyFavorites.length > 0) {
+				newFavorites = parsedLocalStorageFavorites.map(item => {
+					if (item.id === user.id) {
+						item.favorites = favorites
+					}
+
+					return item
+				})
+			} else {
+				parsedLocalStorageFavorites.push({ id: user.id, favorites })
+				newFavorites = Object.assign([], parsedLocalStorageFavorites)
+			}
 		} else {
 			newFavorites = [{ id: user.id, favorites }]
 		}
@@ -506,6 +513,7 @@ class App extends Component {
 			<div className={_sideNav}>
 				<SideNav
 					addCustomCard={this.addCustomCard}
+					label='Add Custom Card'
 				/>
 			</div>
 		)
