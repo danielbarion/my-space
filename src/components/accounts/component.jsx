@@ -3,6 +3,7 @@
  */
 import React, { Component } from 'react'
 import { MySpaceContext } from 'context/myspace'
+import Pagination from 'components/pagination/component'
 
 class Accounts extends Component {
 	constructor(props) {
@@ -10,7 +11,20 @@ class Accounts extends Component {
 			this.state = {
 				users: [],
 				lastActiveUser: {},
-				initializing: true
+				initializing: true,
+				usersPagination: {
+					/**
+					 * vars
+					 */
+					page: 1,
+					itemsPerPage: 3,
+
+					/**
+					 * funcs
+					 */
+					updatePage: this.updatePage.bind(this)
+				},
+				visibleUsers: []
 			}
 
 		/**
@@ -18,6 +32,7 @@ class Accounts extends Component {
 		 */
 		this.selectAvatar = this.selectAvatar.bind(this)
 		this.isSelectedAttr = this.isSelectedAttr.bind(this)
+		this.calcUsersPerPage = this.calcUsersPerPage.bind(this)
 	}
 
 	/**
@@ -34,6 +49,11 @@ class Accounts extends Component {
 		users = JSON.parse(users)
 
 		this.setState({	users })
+
+		window.addEventListener('resize', () => {
+			this.calcUsersPerPage()
+			this.setVisibleUsers()
+		})
 	}
 
 	componentDidMount() {
@@ -46,6 +66,11 @@ class Accounts extends Component {
 				this.selectAvatar(lastActiveUser)
 			})
 		}
+
+		setTimeout(() => {
+			this.calcUsersPerPage()
+			this.setVisibleUsers()
+		}, 350)
 	}
 
 	/**
@@ -78,6 +103,63 @@ class Accounts extends Component {
 		}
 	}
 
+	calcUsersPerPage() {
+		const { usersPagination } = this.state
+
+		if (window.innerWidth < 768) {
+			usersPagination.itemsPerPage = 3
+		}
+		if (window.innerWidth >= 768) {
+			usersPagination.itemsPerPage = 6
+		}
+		if (window.innerWidth >= 1024) {
+			usersPagination.itemsPerPage = 6
+		}
+
+		this.setState({ usersPagination })
+	}
+
+	updatePage(page) {
+		const { usersPagination } = this.state
+		usersPagination.page = page
+
+		this.setState({
+			usersPagination
+		}, () => this.setVisibleUsers())
+	}
+
+	setVisibleUsers() {
+		const { usersPagination } = this.state
+		let {
+			users,
+			visibleUsers
+		} = this.state
+
+		const maxIndex = usersPagination.itemsPerPage * usersPagination.page
+		const minIndex = (usersPagination.itemsPerPage * (usersPagination.page - 1)) + 1
+
+		visibleUsers = users.reduce((acc, item, index) => {
+
+			if (acc.length < usersPagination.itemsPerPage) {
+				if (usersPagination.page > 1) {
+					if ((index + 1) <= maxIndex && (index + 1) >= minIndex) {
+						acc.push(item)
+					}
+				} else {
+					if ((index + 1) <= maxIndex) {
+						acc.push(item)
+					}
+				}
+			}
+
+			return acc
+		}, [])
+
+		this.setState({
+			visibleUsers
+		})
+	}
+
 	/**
 	 * attrs
 	 */
@@ -100,7 +182,8 @@ class Accounts extends Component {
 		 */
 		const _root = 'accounts'
 		const _card = 'card'
-		const _avatarImg = `${_root}-avatar-img`
+		const _userList = `${_root}-user-list`
+		const _avatarImg = `${_userList}-avatar-img`
 		const _name = `${_avatarImg}-name`
 
 		/**
@@ -108,7 +191,16 @@ class Accounts extends Component {
 		 */
 		const main = (context) => (
 			<div className={_root}>
-				{this.state.users.map((user, index) => avatarImg(user))}
+				{userList()}
+				<Pagination
+					pagination={this.state.usersPagination}
+				/>
+			</div>
+		)
+
+		const userList = () => (
+			<div className={_userList}>
+				{this.state.visibleUsers.map((user, index) => avatarImg(user))}
 			</div>
 		)
 
