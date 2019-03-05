@@ -84,7 +84,7 @@ class App extends Component {
 		let user = localStorage.getItem('activeUser')
 
 		if (!user) {
-			this.props.history.push(`/`)
+			this.props.history.push('/')
 		} else {
 			user = JSON.parse(user)
 			this.setState({

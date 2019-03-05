@@ -1,0 +1,36 @@
+.accounts
+	display flex
+	justify-content center
+	flex-wrap wrap
+	align-items center
+	padding 1rem
+	overflow-y auto
+	position relative
+	z-index 3
+
+	&-avatar-img
+		display flex
+		justify-content center
+		position relative
+		flex 1
+		margin 1rem
+		cursor pointer
+
+		& img
+			height 180px
+			max-width 100%
+			max-height 190px
+
+		&-name
+			position absolute
+			bottom 10px
+			color rgba(0, 0, 0, 0.5)
+			font-family 'Ubuntu', sans-serif
+
+		&[isselected=true]
+			border 1.5px solid #61DAFB
+
+			& img
+				height 177px
+				max-width 100%
+				max-height 187px

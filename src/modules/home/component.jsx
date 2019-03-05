@@ -20,7 +20,7 @@ class Home extends Component {
 	 * funcs
 	 */
 	goToApp() {
-		this.props.history.push(`/users`)
+		this.props.history.push('/users')
 	}
 
 	/**

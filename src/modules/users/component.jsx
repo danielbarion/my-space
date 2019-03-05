@@ -5,6 +5,7 @@ import React, { Component } from 'react'
 import { MySpaceContext } from 'context/myspace'
 import Input from 'components/input/component'
 import AvatarPick from 'components/avatar-pick/component'
+import Accounts from 'components/accounts/component'
 
 class Users extends Component {
 	constructor(props) {
@@ -53,7 +54,7 @@ class Users extends Component {
 	 * funcs
 	 */
 	goToApp() {
-		this.props.history.push(`/app`)
+		this.props.history.push('/app')
 	}
 
 	setAvatar(avatar) {
@@ -252,7 +253,10 @@ class Users extends Component {
 
 		const list = () => (
 			<div className={_list}>
-				lorem ipsum
+				<Accounts
+					onClick={this.setAvatar}
+					goToApp={this.goToApp}
+				/>
 			</div>
 		)
 

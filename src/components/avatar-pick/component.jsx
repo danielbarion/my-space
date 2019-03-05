@@ -97,7 +97,7 @@ class AvatarPick extends Component {
 		 */
 		const main = (context) => (
 			<div className={_root}>
-			{this.state.avatars.map((avatar, index) => avatarImg(avatar, index))}
+				{this.state.avatars.map((avatar, index) => avatarImg(avatar, index))}
 			</div>
 		)
 
