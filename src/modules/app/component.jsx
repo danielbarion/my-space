@@ -261,6 +261,12 @@ class App extends Component {
 
 		localStorage.setItem('favorites', JSON.stringify(newFavorites))
 
+		const maxPages = favoritesPagination.total / favoritesPagination.itemsPerPage
+
+		if (favoritesPagination.page > maxPages) {
+			this.updateFavoritesPage(maxPages)
+		}
+
 		this.setState({
 			favorites,
 			favoritesPagination,
