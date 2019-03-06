@@ -18,6 +18,7 @@ class Accounts extends Component {
 					 */
 					page: 1,
 					itemsPerPage: 3,
+					total: 0,
 
 					/**
 					 * funcs
@@ -48,7 +49,14 @@ class Accounts extends Component {
 
 		users = JSON.parse(users)
 
-		this.setState({	users })
+		const { usersPagination } = this.state
+
+		usersPagination.total = users.length
+
+		this.setState({
+			users,
+			usersPagination
+		})
 
 		window.addEventListener('resize', () => {
 			this.calcUsersPerPage()

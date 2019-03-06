@@ -13,6 +13,11 @@ class Pagination extends Component {
 	constructor(props) {
 		super(props)
 			this.state = {}
+
+		/**
+		 * binded funcs
+		 */
+		this.canShowPagination = this.canShowPagination.bind(this)
 	}
 
 	/**
@@ -22,16 +27,17 @@ class Pagination extends Component {
 		const { pagination } = this.props
 		const element = document.querySelector(`#${id}`)
 		const initialClassList = element.classList[0]
+		let canUpdatePage = true
 
 		element.className = `${element.classList} animationPulse`
 
 		let page = pagination.page
-		const lastPage = parseInt(pagination.total / 10)
+		const lastPage = Math.ceil(pagination.total / pagination.itemsPerPage)
 
 		switch (id) {
 			case 'firstPageArrow':
 				if (page === 1) {
-					return
+					canUpdatePage = false
 				}
 
 				page = 1
@@ -39,7 +45,7 @@ class Pagination extends Component {
 				break
 			case 'previousPageArrow':
 				if (page === 1) {
-					return
+					canUpdatePage = false
 				}
 
 				page -= 1
@@ -47,7 +53,7 @@ class Pagination extends Component {
 				break
 			case 'nextPageArrow':
 				if (page === lastPage) {
-					return
+					canUpdatePage = false
 				}
 
 				page += 1
@@ -55,7 +61,7 @@ class Pagination extends Component {
 				break
 			case 'lastPageArrow':
 				if (page === lastPage) {
-					return
+					canUpdatePage = false
 				}
 
 				page = lastPage
@@ -66,7 +72,9 @@ class Pagination extends Component {
 				break
 		}
 
-		this.updatePaginationPage(page)
+		if (canUpdatePage) {
+			this.updatePaginationPage(page)
+		}
 
 		setTimeout(() => (
 			element.className = initialClassList
@@ -77,6 +85,12 @@ class Pagination extends Component {
 		const { pagination } = this.props
 
 		pagination.updatePage(page)
+	}
+
+	canShowPagination() {
+		const { pagination } = this.props
+
+		return !(1 === Math.ceil(pagination.total / pagination.itemsPerPage))
 	}
 
 	/**
@@ -97,23 +111,26 @@ class Pagination extends Component {
 		 * render functions
 		 */
 		const main = (context) => (
-			<div className={_root}>
-				<div className={_paginationFirstPage} id='firstPageArrow' onClick={this.animationPulse.bind(this, 'firstPageArrow')}>
-					<KeyboardCapslockRounded />
+			this.canShowPagination() ? (
+				<div className={_root}>
+					<div className={_paginationFirstPage} id='firstPageArrow' onClick={this.animationPulse.bind(this, 'firstPageArrow')}>
+						<KeyboardCapslockRounded />
+					</div>
+					<div className={_paginationPreviousPage} id='previousPageArrow' onClick={this.animationPulse.bind(this, 'previousPageArrow')}>
+						<KeyboardArrowLeftRounded />
+					</div>
+					<div className={_paginationNumber}>
+						{this.props.pagination.page}
+					</div>
+					<div className={_paginationNextPage} id='nextPageArrow' onClick={this.animationPulse.bind(this, 'nextPageArrow')}>
+						<KeyboardArrowRightRounded />
+					</div>
+					<div className={_paginationLastPage} id='lastPageArrow' onClick={this.animationPulse.bind(this, 'lastPageArrow')}>
+						<KeyboardCapslockRounded />
+					</div>
 				</div>
-				<div className={_paginationPreviousPage} id='previousPageArrow' onClick={this.animationPulse.bind(this, 'previousPageArrow')}>
-					<KeyboardArrowLeftRounded />
-				</div>
-				<div className={_paginationNumber}>
-					{this.props.pagination.page}
-				</div>
-				<div className={_paginationNextPage} id='nextPageArrow' onClick={this.animationPulse.bind(this, 'nextPageArrow')}>
-					<KeyboardArrowRightRounded />
-				</div>
-				<div className={_paginationLastPage} id='lastPageArrow' onClick={this.animationPulse.bind(this, 'lastPageArrow')}>
-					<KeyboardCapslockRounded />
-				</div>
-			</div>
+			)
+				: null
 		)
 
 		return (
