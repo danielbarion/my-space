@@ -48,6 +48,8 @@ class App extends Component {
 					 */
 					page: 1,
 					itemsPerPage: 1,
+					total: 0,
+					canShowArrows: false,
 
 					/**
 					 * funcs
@@ -261,7 +263,7 @@ class App extends Component {
 
 		localStorage.setItem('favorites', JSON.stringify(newFavorites))
 
-		const maxPages = favoritesPagination.total / favoritesPagination.itemsPerPage
+		const maxPages = Math.ceil(favoritesPagination.total / favoritesPagination.itemsPerPage)
 
 		if (favoritesPagination.page > maxPages) {
 			this.updateFavoritesPage(maxPages)
@@ -336,8 +338,12 @@ class App extends Component {
 			return acc
 		}, [])
 
+		favoritesPagination.total = favorites.length
+		favoritesPagination.canShowArrows = !(1 === Math.ceil(favoritesPagination.total / favoritesPagination.itemsPerPage))
+
 		this.setState({
-			visibleFavorites
+			visibleFavorites,
+			favoritesPagination
 		})
 	}
 
@@ -350,10 +356,12 @@ class App extends Component {
 		let page = favoritesPagination.page
 		const lastPage = Math.ceil(favorites.length / favoritesPagination.itemsPerPage)
 
+		let canUpdatePage = true
+
 		switch (id) {
 			case 'previousFavoritePage':
 				if (page === 1) {
-					return
+					canUpdatePage = false
 				}
 
 				page -= 1
@@ -361,7 +369,7 @@ class App extends Component {
 				break
 			case 'nextFavoritePage':
 				if (page === lastPage) {
-					return
+					canUpdatePage = false
 				}
 
 				page += 1
@@ -372,11 +380,13 @@ class App extends Component {
 					break
 			}
 
+		if (canUpdatePage) {
 			favoritesPagination.page = page
 
-		this.setState({
-			favoritesPagination
-		}, () => this.setVisibleFavorites())
+			this.setState({
+				favoritesPagination
+			}, () => this.setVisibleFavorites())
+		}
 	}
 
 	switchSearchBarActive(event) {
@@ -574,7 +584,9 @@ class App extends Component {
 		const cardListFavorites = () => (
 			<div className={_cardListFavorites} hasfavorite={this.hasFavoriteAttr()}>
 				<div className={_favoritePaginationLeft}>
-					<KeyboardArrowLeftRounded onClick={this.switchFavoritePage.bind(this, 'previousFavoritePage')} />
+					{this.state.favoritesPagination.canShowArrows
+						? <KeyboardArrowLeftRounded onClick={this.switchFavoritePage.bind(this, 'previousFavoritePage')} />
+							: null}
 				</div>
 				<div className={_favoriteCards}>
 				{this.state.favorites.length > 0
@@ -588,7 +600,9 @@ class App extends Component {
 					: null}
 				</div>
 				<div className={_favoritePaginationRight}>
-					<KeyboardArrowRightRounded onClick={this.switchFavoritePage.bind(this, 'nextFavoritePage')} />
+					{this.state.favoritesPagination.canShowArrows
+						? <KeyboardArrowRightRounded onClick={this.switchFavoritePage.bind(this, 'nextFavoritePage')} />
+						: null}
 				</div>
 			</div>
 		)
