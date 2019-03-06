@@ -34,6 +34,7 @@ class Accounts extends Component {
 		this.selectAvatar = this.selectAvatar.bind(this)
 		this.isSelectedAttr = this.isSelectedAttr.bind(this)
 		this.calcUsersPerPage = this.calcUsersPerPage.bind(this)
+		this.resizeScreen = this.resizeScreen.bind(this)
 	}
 
 	/**
@@ -58,10 +59,7 @@ class Accounts extends Component {
 			usersPagination
 		})
 
-		window.addEventListener('resize', () => {
-			this.calcUsersPerPage()
-			this.setVisibleUsers()
-		})
+		window.addEventListener('resize', this.resizeScreen)
 	}
 
 	componentDidMount() {
@@ -79,6 +77,10 @@ class Accounts extends Component {
 			this.calcUsersPerPage()
 			this.setVisibleUsers()
 		}, 350)
+	}
+
+	componentWillUnmount() {
+		window.removeEventListener('resize', this.resizeScreen)
 	}
 
 	/**
@@ -109,6 +111,11 @@ class Accounts extends Component {
 				initializing: false
 			})
 		}
+	}
+
+	resizeScreen() {
+		this.calcUsersPerPage()
+		this.setVisibleUsers()
 	}
 
 	calcUsersPerPage() {

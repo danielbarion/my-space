@@ -78,6 +78,7 @@ class App extends Component {
 		this.calcItemsPerPage = this.calcItemsPerPage.bind(this)
 		this.addCustomCard = this.addCustomCard.bind(this)
 		this.goToSwitchPerson = this.goToSwitchPerson.bind(this)
+		this.resizeScreen = this.resizeScreen.bind(this)
 	}
 
 	/**
@@ -98,10 +99,7 @@ class App extends Component {
 				}, () => this.getMarvelCharacters())
 			})
 
-			window.addEventListener('resize', () => {
-				this.calcItemsPerPage()
-				this.setVisibleFavorites()
-			})
+			window.addEventListener('resize', this.resizeScreen)
 		}
 	}
 
@@ -110,6 +108,10 @@ class App extends Component {
 			this.calcItemsPerPage()
 			this.setVisibleFavorites()
 		}, 350)
+	}
+
+	componentWillUnmount() {
+		window.removeEventListener('resize', this.resizeScreen)
 	}
 
 	/**
@@ -159,6 +161,11 @@ class App extends Component {
 				})
 			}
 		)
+	}
+
+	resizeScreen() {
+		this.calcItemsPerPage()
+		this.setVisibleFavorites()
 	}
 
 	getFavorites() {
