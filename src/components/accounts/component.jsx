@@ -209,6 +209,7 @@ class Accounts extends Component {
 				{userList()}
 				<Pagination
 					pagination={this.state.usersPagination}
+					roundUpLastPage={true}
 				/>
 			</div>
 		)

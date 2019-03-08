@@ -33,6 +33,7 @@ class App extends Component {
 					 * vars
 					 */
 					page: 1,
+					itemsPerPage: 10,
 					total: 0,
 
 					/**

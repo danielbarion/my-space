@@ -32,7 +32,14 @@ class Pagination extends Component {
 		element.className = `${element.classList} animationPulse`
 
 		let page = pagination.page
-		const lastPage = Math.ceil(pagination.total / pagination.itemsPerPage)
+
+		let lastPage = 1
+
+		if (this.props.roundUpLastPage) {
+			lastPage = Math.ceil(pagination.total / (pagination.itemsPerPage || 10))
+		} else {
+			lastPage = parseInt(pagination.total / (pagination.itemsPerPage || 10))
+		}
 
 		switch (id) {
 			case 'firstPageArrow':
