@@ -326,11 +326,10 @@ class App extends Component {
 			visibleFavorites
 		} = this.state
 
-		const maxIndex = favoritesPagination.itemsPerPage * favoritesPagination.page
+		const maxIndex = favoritesPagination.page === 0 ? (favoritesPagination.itemsPerPage - 1) : favoritesPagination.itemsPerPage * favoritesPagination.page
 		const minIndex = (favoritesPagination.itemsPerPage * (favoritesPagination.page - 1)) + 1
 
 		visibleFavorites = favorites.reduce((acc, item, index) => {
-
 			if (acc.length < favoritesPagination.itemsPerPage) {
 				if (favoritesPagination.page > 1) {
 					if ((index + 1) <= maxIndex && (index + 1) >= minIndex) {
